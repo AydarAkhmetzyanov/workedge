@@ -154,7 +154,7 @@ class Task extends Model
 		            'taskId' => $addId,
 				    'userId' => $_SESSION['id'],
 					'role' => 1,
-					'updated' => 1
+					'updated' => 0
 				    ));
 				    $stmtMembership->execute( array(
 		            'taskId' => $addId,
