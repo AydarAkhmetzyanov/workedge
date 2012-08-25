@@ -23,8 +23,8 @@ class Header
 		if(CONTROLLER != 'login'){
 		    $data['MembershipList'] = User::getMembershipList();
 			$data['newMessages'] = 2;
-			$data['activeTasks'] = 3;
 			
+			$data['activeTasks'] = 3;
 			$tasksStatus = 'active';
 			switch ($tasksStatus) {
                 case 'updated':
