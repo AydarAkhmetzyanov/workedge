@@ -1,0 +1,58 @@
+section {
+   padding-top: 60px;
+}
+
+h2 + table,
+h3 + table,
+h4 + table,
+h2 + .row {
+  margin-top: 5px;
+}
+	  
+	  footer{
+	    padding-top: 40px;
+	  }
+
+	  a{
+	      cursor:pointer;
+	  }
+	  
+	  .pointer{
+	      cursor:pointer;
+	  }
+	  
+	  tr.active{
+	      background-color: #EFFFEF;
+	  }
+	  
+	  tr.updated{
+	      background-color: #EDFBFF;
+	  }
+	  
+	  .mainPage{
+	  padding-top: 16px;
+	  }
+	  
+	  
+	  /* мои изменения бутстрап */
+	  .navbar .brand{
+	  color: #08c;
+	  }
+	  
+	  .navbar .nav > li > a{
+	  color: #08c;
+	  }
+	  
+	  .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle{
+	  color: #08c;
+	  }
+	  
+	.table tbody tr.info td{
+	background-color:#EFFAFF;
+	}
+	
+	.table tbody tr.success td
+	{
+	background-color:#FFF7F8;
+	}
+	
