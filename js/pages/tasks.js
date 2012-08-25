@@ -50,7 +50,7 @@ function tableLoaded(data){
 	} else {
 	    $('#emptyAlert').hide();
 	    $('#tasksTable').parent().show();
-        renderTasksTable(JSON.parse(data));
+        renderTasksTable(jQuery.parseJSON(data));
 		$('#tasksTable').show("slow");
 		$('tr#'+$('.task').attr('iid')).addClass('success');
 		$('.showTask').click(function() {
@@ -99,7 +99,7 @@ function tableLoaded(data){
 }
 
 function taskLoaded(data){
-    renderTask(JSON.parse(data));
+    renderTask(jQuery.parseJSON(data));
     $("#taskList").removeClass("span12").addClass("span6");
     $(".task").show("slow");
 	location.hash='';
@@ -245,7 +245,7 @@ function renderTask(task){
 	$.each(task.members, function(key, value) {
 	    $("#taskMembersList").append('<tr><td></td><td><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName+'</a></td></tr>');
     });
-	
+	$('#deleteButton').removeAttr('disabled');
 }
 
 function makeComplete(taskId){
@@ -257,5 +257,6 @@ function makeUnComplete(taskId){
 }
 
 function deleteTask(taskId){
+    $('tr#'+$('.task').attr('id')).remove();
     $.post("/tasks_ajax/deleteTask",{ taskId: taskId });
 }

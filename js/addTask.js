@@ -50,7 +50,7 @@ function addTaskSubmit(){
 }
 
 function taskAdded(rawData){
-    var data=JSON.parse(rawData);
+    var data=jQuery.parseJSON(rawData);
 	var appendhtml='<tr><td><a href="/tasks/'+data.id+'">'+$('#addTaskName').attr("value")+'</a></td><td><a href="/wall/'+$('#addTaskResponsible').attr("uId")+'">'+$('#addTaskResponsible').attr("value")+'</a></td><td>'+$('#addDeadLine').attr("value")+'</td></tr>';
 	$("#addedTasksTable").append(appendhtml);
 	$("#addedTasksTableDiv").show();

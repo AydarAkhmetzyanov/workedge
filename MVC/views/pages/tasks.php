@@ -42,7 +42,7 @@
 	<div id="taskToolBar" class="btn-toolbar">
 	<div class="btn-group"><button id="changeTaskStatus" onclick="makeComplete($('.task').attr('id')); $(this).hide(); $('#changeTaskStatusToUncomplete').show();" class="btn btn-success btn-small"><i class="icon-ok-circle"></i> Выполнено!</button></div>
 	<div class="btn-group"><button id="changeTaskStatusToUncomplete" onclick="makeUnComplete($('.task').attr('id')); $(this).hide(); $('#changeTaskStatus').show();" class="btn btn-warning btn-small"><i class="icon-ok-sign"></i> Начать заново</button></div>
-	<div class="btn-group" id="taskOwnerToolBar"><button style="display:none;" class="btn btn-warning btn-small"><i class="icon-pencil"></i> Изменить</button><button onclick="deleteTask($('.task').attr('id')); $(this).attr('disabled','disabled');" class="btn btn-small btn-danger"><i class="icon-trash"></i></button></div>
+	<div class="btn-group" id="taskOwnerToolBar"><button style="display:none;" class="btn btn-warning btn-small"><i class="icon-pencil"></i> Изменить</button><button onclick="deleteTask($('.task').attr('id')); $(this).attr('disabled','disabled');" id="deleteButton" class="btn btn-small btn-danger"><i class="icon-trash"></i></button></div>
 	</div>
   <table class="table table-bordered">
         <tbody>

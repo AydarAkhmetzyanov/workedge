@@ -10,7 +10,7 @@ $.post(
 
 function onLogIn(data)
 {
-    oresult = JSON.parse(data);
+    oresult = jQuery.parseJSON(data);
     switch(oresult.error)
 {
 case 0:
