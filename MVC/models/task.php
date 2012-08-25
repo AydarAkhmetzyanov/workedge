@@ -131,44 +131,72 @@ class Task extends Model
 		    $linkId=$_POST['linkId'];
 		}
 			$stmt = $db->prepare('
-			    INSERT INTO `tasks`(`name`, `description`,`link`, `linkType`, `timeDeadLine`) 
-			    VALUES (:name,:description,:link,:linkType,:timeDeadLine)
+			    INSERT INTO `tasks`(`name`, `description`,`link`, `linkType`, `timeDeadLine`,`status`) 
+			    VALUES (:name,:description,:link,:linkType,:timeDeadLine,:status)
 		    ');
 			$stmtMembership = $db->prepare('
 			    INSERT INTO `taskmembership`(`taskId`, `userId`, `role`, `updated`, `isDone`) 
-				VALUES (:taskId,:userId,:role,1,0)
+				VALUES (:taskId,:userId,:role,:updated,0)
 		    ');
 		    try{
-                $db -> beginTransaction ();
-				$stmt->execute( array(
+			$db -> beginTransaction ();
+				if($_SESSION['id']!=$_POST['addTaskResponsibleId']){
+					$stmt->execute( array(
 		            'name' => htmlspecialchars($_POST['addTaskName']),
 				    'description' => htmlspecialchars($_POST['addDescription']),
 				    'link' => $linkId,
 				    'linkType' => $_POST['linkType'],
-		            'timeDeadLine' => $_POST['addDeadLine']
-				));
-				$addId=$db->lastInsertId();
-				$stmtMembership->execute( array(
+		            'timeDeadLine' => $_POST['addDeadLine'],
+					'status' => 1
+				    ));
+				    $addId=$db->lastInsertId();
+				    $stmtMembership->execute( array(
 		            'taskId' => $addId,
 				    'userId' => $_SESSION['id'],
-					'role' => 1
-				));
-				$stmtMembership->execute( array(
+					'role' => 1,
+					'updated' => 1
+				    ));
+				    $stmtMembership->execute( array(
 		            'taskId' => $addId,
 				    'userId' => $_POST['addTaskResponsibleId'],
-					'role' => 2
-				));
+					'role' => 2,
+					'updated' => 1
+				    ));
+				} else {
+				    $stmt->execute( array(
+		            'name' => htmlspecialchars($_POST['addTaskName']),
+				    'description' => htmlspecialchars($_POST['addDescription']),
+				    'link' => $linkId,
+				    'linkType' => $_POST['linkType'],
+		            'timeDeadLine' => $_POST['addDeadLine'],
+					'status' => 2
+				    ));
+				    $addId=$db->lastInsertId();
+				    $stmtMembership->execute( array(
+		            'taskId' => $addId,
+				    'userId' => $_SESSION['id'],
+					'role' => 1,
+					'updated' => 0
+				    ));
+				    $stmtMembership->execute( array(
+		            'taskId' => $addId,
+				    'userId' => $_POST['addTaskResponsibleId'],
+					'role' => 2,
+					'updated' => 0
+				    ));
+				}
 				if(($_POST['options']=='true')and($_POST['memberList']!='')){
 				    $members=array_unique(explode(',',$_POST['memberList']));
 					foreach ($members as $val) {
 					    $stmtMembership->execute( array(
 		        	  	    'taskId' => $addId,
 					 	    'userId' => $val,
-							'role' => 3
+							'role' => 3,
+					        'updated' => 1
 				        ));
                     }
-				}
-                $db -> commit(); 
+				}  
+            $db -> commit();				
             }
             catch ( Exception $e ){ 
                 $db -> rollBack(); 

@@ -22,13 +22,24 @@ class Header
 		renderView('header', $data);
 		if(CONTROLLER != 'login'){
 		    $data['MembershipList'] = User::getMembershipList();
-			$data['newMessages'] = 2;
-			
-			$data['activeTasks'] = 3;
-			$tasksStatus = 'active';
+			$data['newMessages'] = 2;                                           //todo messages		
+			$updatedTasks = TaskList::getUpdatedTasks();
+			if($updatedTasks>0){
+			    $data['activeTasks'] = $updatedTasks;
+			    $tasksStatus = 'updated';
+			} else {
+			    $uncompleteTasks = TaskList::getUncompleteTasks();
+				if($uncompleteTasks>0){
+				    $data['activeTasks'] = $uncompleteTasks;
+			        $tasksStatus = 'active';
+				} else {
+				    $data['activeTasks']=0;
+					$tasksStatus = 'empty';
+				}
+			}
 			switch ($tasksStatus) {
                 case 'updated':
-                    $data['tasksButton'] = "btn-success";
+                    $data['tasksButton'] = "btn-danger";
                 break;
                 case 'active':
                     $data['tasksButton'] = "btn-info";

@@ -48,11 +48,11 @@ h2 + .row {
 	  }
 	  
 	.table tbody tr.info td{
-	background-color:#EFFAFF;
+	background-color:#FFF7F8;
 	}
 	
 	.table tbody tr.success td
 	{
-	background-color:#FFF7F8;
+	background-color:#EFFAFF;
 	}
 	

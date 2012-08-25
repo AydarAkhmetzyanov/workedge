@@ -53,4 +53,24 @@ LIMIT 40";
 		}
 	}
 	
+	public static function getUpdatedTasks(){
+	    global $db;
+		$query="
+		SELECT DISTINCT `taskId` FROM `taskmembership` WHERE `updated` = 1 and `isDone`=0 and `userId`=:userId
+		";
+		$stmtTaskList = $db->prepare($query);
+		$stmtTaskList->execute( array('userId' => $_SESSION['id']) );
+		return $stmtTaskList->rowCount();
+	}
+	
+	public static function getUncompleteTasks(){
+	    global $db;
+		$query="
+		SELECT DISTINCT `taskId` FROM `taskmembership` WHERE `isDone`=0 and `userId`=:userId
+		";
+		$stmtTaskList = $db->prepare($query);
+		$stmtTaskList->execute( array('userId' => $_SESSION['id']) );
+		return $stmtTaskList->rowCount();
+	}
+	
 }
