@@ -56,12 +56,11 @@ class User extends Model
 				$_SESSION['firstName'] = $table['firstName'];
 				$_SESSION['secondName'] = $table['secondName'];
 				$stmt = $db->prepare("
-					SELECT  `companymembership`.`companyId`, `companymembership`.`position`  ,  `companymembership`.`access` ,  `companies`.`name`
+					SELECT  `companymembership`.`companyId`, `companymembership`.`position`  ,  `companymembership`.`access` ,  `companies`.`name`,`companies`.`plan`
             	    FROM  `companymembership` 
             	    INNER JOIN  `companies` ON  `companymembership`.`companyId` =  `companies`.`id` 
             	    WHERE  `companymembership`.`userId` = :userId
 					ORDER BY `companymembership`.`access` DESC
-            	    LIMIT 1
 				");
 				$stmt->execute( array('userId' => $table['id']) );
 				if($stmt->rowCount() > 0){
@@ -72,6 +71,8 @@ class User extends Model
 					$_SESSION['name'] = $table['name'];
 					$_SESSION['maxAccess'] = $table['access'];
 					$_SESSION['position'] = $table['position'];
+					$_SESSION['plan'] = $table['plan'];
+					$_SESSION['companyMembershipCount'] = $stmt->rowCount();
 				} else {
 				    $_SESSION['access'] = 0;
 				}

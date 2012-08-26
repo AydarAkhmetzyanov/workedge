@@ -12,7 +12,7 @@ class Header
            $data['title']='Задачи';
 		   $data['menuPage'] = 'Задачи';
 		   $data['menuIcon'] = 'icon-tasks';
-		   $data['menuActions'] = '<li><a data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i> Добавить задачу</a></li>';
+		   $data['menuActions'] = '<li class="divider-vertical"></li><li><a data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i> Добавить задачу</a></li>';
         break;
 		case 'wall':
            $data['title']='Стена';
