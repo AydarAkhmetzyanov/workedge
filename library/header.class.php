@@ -14,8 +14,17 @@ class Header
 		   $data['menuIcon'] = 'icon-tasks';
 		   $data['menuActions'] = '<li><a data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i> Добавить задачу</a></li>';
         break;
-		case 'coworkers':
-           $data['title']='Сотрудники';
+		case 'wall':
+           $data['title']='Стена';
+		   $data['menuPage'] = 'Стена';
+		   $data['menuIcon'] = 'icon-th-list';
+		   $data['menuActions'] = '';
+        break;
+		case 'company':
+           $data['title']='Компания';
+		   $data['menuPage'] = 'Компания';
+		   $data['menuIcon'] = 'icon-briefcase';
+		   $data['menuActions'] = '';
         break;
         }
 

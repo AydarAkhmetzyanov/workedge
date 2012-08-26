@@ -1,14 +1,14 @@
 <?php
 
-class TasksController extends Controller {
+class CompanyController extends Controller {
     
-	public function index($initTask = 0){
+	public function index($companyId = 0){
 	    if(!(User::isAuth())){
 		    redirect('login');
 		} else {
 			Header::render();
 			$data = array();
-			$data['initTask']=$initTask;
+			$data['companyId']=$companyId;
 		    renderView('pages/'.CONTROLLER,$data);
 		    renderView('footer');
 			echo '<!--'.round(timeMeasure()-TIMESTART, 6).' sec. -->';

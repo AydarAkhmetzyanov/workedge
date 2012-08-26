@@ -8,7 +8,8 @@ class LoginController extends Controller {
 		    redirect('tasks');
 		} else {
 		    Header::render();
-		    renderView('pages/login');
+			$data = array();
+		    renderView('pages/'.CONTROLLER,$data);
 		    renderView('footer');
 			echo '<!--'.round(timeMeasure()-TIMESTART, 6).' sec. -->';
 		}

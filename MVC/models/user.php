@@ -69,11 +69,11 @@ class User extends Model
 				    $table=$stmt->fetch();
 				    $_SESSION['companyId'] = $table['companyId'];
 					$_SESSION['access'] = $table['access'];
-					$_SESSION['maxAccess'] = $table['access'];
 					$_SESSION['name'] = $table['name'];
+					$_SESSION['maxAccess'] = $table['access'];
 					$_SESSION['position'] = $table['position'];
 				} else {
-				    //wtf
+				    $_SESSION['access'] = 0;
 				}
             } else {
                 $arr = array('error' => 2, 'uid' => 0, 'password' => 0);
