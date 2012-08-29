@@ -19,29 +19,17 @@
 </dl>
 		  </div>
 		  <div class="span2"><br /><br />
-		      <blockquote class="pull-right onlineBorder"><p>Offline</p></blockquote>
-			  <blockquote class="pull-right onlineBorder"><p><i class="icon-pencil"></i> <a>Написать письмо</a></p></blockquote>
-			  <blockquote class="pull-right onlineBorder"><p><i class="icon-edit"></i> <a>Задача</a></p></blockquote>
-			  <blockquote class="pull-right onlineBorder"><p><i class="icon-thumbs-up"></i> <a>Встреча</a></p></blockquote>
+		      <blockquote class="pull-right offlineBorder"><p>Offline</p></blockquote>
+			  <blockquote class="pull-right"><p><a>Сообщение</a> <i class="icon-pencil"></i></p></blockquote>
+			  <blockquote class="pull-right"><p><a>Задача</a> <i class="icon-tasks"></i></p></blockquote>
 		  </div>
 		  </div>
 		  
 		  <div class="row">
-		  <div class="span3">
 		  
-    <ul class="nav nav-tabs">
-	<li class="active"><a href="#" data-toggle="tab">Друзья</a></li>
-	<li><a href="#" data-toggle="tab">Сотрудники</a></li>
-  </ul>
-  <div class="tab-content">
-
-  </div>
-		  </div>
-		  <div class="span9">
+		  <div class="span8">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tabWall" data-toggle="tab">Стена</a></li>
-	<li><a href="#" data-toggle="tab">Друзья</a></li>
-	<li><a href="#" data-toggle="tab">Альбомы</a></li>
 	<li class="pull-right"><a href="#tabProfile" data-toggle="tab"><i class="icon-user"></i></a></li>
 	<li class="pull-right"><a href="#tabSettings" data-toggle="tab"><i class="icon-cog"></i></a></li>
   </ul>
@@ -84,6 +72,16 @@
     </div>
 	<div class="tab-pane" id="tabSettings">
       <p>tabSettings</p>
+    </div>
+  </div>
+		  </div>
+		  <div class="span4">
+    <ul class="nav nav-tabs">
+	<li class="active pull-right"><a href="tabCoWorkers" data-toggle="tab">Сотрудники</a></li>
+  </ul>
+  <div class="tab-content">
+ <div class="tab-pane active" id="tabCoWorkers">
+	сотрудники
     </div>
   </div>
 		  </div>

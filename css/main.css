@@ -56,3 +56,21 @@ h2 + .row {
 	background-color:#EFFAFF;
 	}
 	
+	blockquote.pull-right.onlineBorder {
+	border-right: 5px solid #A1E7A1;
+	}
+
+	blockquote.pull-right.offlineBorder {
+	border-right: 5px solid #EEE;
+	}
+	
+	blockquote.pull-right {
+	border-right: 5px solid #BEE5FF;
+	}
+	
+	blockquote {
+	border-left: 5px solid #BEE5FF;
+	}
+	
+	
+	
