@@ -22,7 +22,7 @@ class TaskList extends Model
 		    $query="
 SELECT main.`taskId` ,main.`role` , main.`updated`,
 task.`name` ,task.`status` ,
-DATE(task.`timeDeadLine`) - DATE(task.`timeCreate`)  AS `difCD` , DATE(task.`timeDeadLine`) - DATE(NOW()) AS `difDN`, DATE(task.`timeDeadLine`) - DATE(task.`timeFinish`) AS `difDF` ,
+TIMESTAMPDIFF( MINUTE ,task.`timeDeadLine`,task.`timeCreate`)  AS `difCD` , TIMESTAMPDIFF( MINUTE ,task.`timeDeadLine`,NOW()) AS `difDN`, TIMESTAMPDIFF( MINUTE ,task.`timeDeadLine`,task.`timeFinish`) AS `difDF` ,
 uo.`firstName` AS `oFirstName`, uo.`secondName` AS `oSecondName`, uo.`id` AS `oId`, 
 ur.`firstName` AS `rFirstName`, ur.`secondName` AS `rSecondName`, ur.`id` AS `rId` 
 FROM  `taskmembership` main,  `tasks` task,  `users` uo,  `users` ur

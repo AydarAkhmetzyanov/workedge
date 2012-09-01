@@ -1,3 +1,4 @@
+
 section {
    padding-top: 60px;
 }
@@ -72,5 +73,11 @@ h2 + .row {
 	border-left: 5px solid #BEE5FF;
 	}
 	
-	
+	.panelAvatar {
+	  height: 40px;
+	  float:left;
+	  margin-top: 0px;
+	  margin-right: 10px;
+	  margin-left: 10px;
+	}
 	

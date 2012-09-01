@@ -142,13 +142,13 @@ function renderTasksTable(tasks){
 		var percent=100;
 		var color;
 		if(value.status=='3'){
-		    if(value.difDF >= 0){
+		    if(value.difDF <= 0){
 				color='progress-success';
 			}else{
 			    color='progress-danger';
 			}
 		} else {
-		    if(value.difDN >= 0){
+		    if(value.difDN <= 0){
 			    percent=(value.difCD-value.difDN)/value.difCD;
 				percent*=100;
 				if(percent>70){
@@ -157,7 +157,6 @@ function renderTasksTable(tasks){
 				    color='';
 				}
 			}else{
-			    alert(value.difDN+' '+value.difCD);
 			    percent=(value.difDN*(-1))/value.difCD;
 				percent*=100;
 				if(percent>99){

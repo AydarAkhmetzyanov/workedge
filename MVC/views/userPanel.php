@@ -1,7 +1,8 @@
 <div class="navbar navbar-static-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="/wall"><?=$_SESSION['firstName']?> <?=$_SESSION['secondName']?></a>
+          <img class="panelAvatar" src="/data/avatar/<?=$_SESSION['id']?>/small.jpg" />
+		  <a class="brand" href="/wall"><?=$_SESSION['firstName']?> <?=$_SESSION['secondName']?></a>
 		  <ul class="nav">
 			
   <?=$menuActions?>
