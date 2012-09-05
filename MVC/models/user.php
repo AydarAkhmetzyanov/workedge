@@ -99,4 +99,18 @@ class User extends Model
 		return $stmt;
 	}
 	
+	public static function getUserById($id){
+	    global $db;
+		$stmt = $db->prepare("
+				SELECT  *
+                FROM  `users` 
+                WHERE  `users`.`id` = :id
+				LIMIT 1
+				");
+		$stmt->execute( array('id' => $id) );
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$user=$stmt->fetch();
+		return $user;
+	}
+	
 }

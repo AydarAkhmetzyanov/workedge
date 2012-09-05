@@ -8,7 +8,11 @@ class WallController extends Controller {
 		} else {
 			Header::render();
 			$data = array();
-			$data['initWall']=$initWall;
+			
+			if($initWall==0){ $initWall=$_SESSION['id']; }
+		    $data['initWall'] = $initWall;
+			$data['user'] = User::getUserById($initWall);
+			
 		    renderView('pages/'.CONTROLLER,$data);
 		    renderView('footer');
 			echo '<!--'.round(timeMeasure()-TIMESTART, 6).' sec. -->';
