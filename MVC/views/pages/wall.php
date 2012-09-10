@@ -6,9 +6,9 @@
 		      <img src="/data/avatar/<?=$initWall?>/big.jpg" class="img-rounded">
 		  </div>
 		  <div class="span7">
-    <h2><?=$user['firstName']?> <?=$user['secondName']?> <small>Классный сервис!</small></h2>
+    <h2><?=$user['firstName']?> <?=$user['secondName']?></h2>
   <dl class="dl-horizontal">
-  <dt>Телефон</dt><dd>+7 (951) 066-51-33</dd>
+  <?php if($user['phoneM']!='') echo '<dt>Телефон</dt><dd>+7 (951) 066-51-33</dd>';?>
   <dt>E-mail</dt><dd>aydar@creatiestripe.ru</dd>
   <br />
   <dt>Город</dt><dd>Казань</dd>
