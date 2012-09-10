@@ -11,7 +11,7 @@ class WallController extends Controller {
 			
 			if($initWall==0){ $initWall=$_SESSION['id']; }
 		    $data['initWall'] = $initWall;
-			$data['user'] = User::getUserById($initWall);
+			$data['user'] = User::getUserByIdForWall($initWall);
 			
 		    renderView('pages/'.CONTROLLER,$data);
 		    renderView('footer');

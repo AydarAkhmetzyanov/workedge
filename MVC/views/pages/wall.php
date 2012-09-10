@@ -11,7 +11,7 @@
   <?php if($user['phoneM']!='') echo "<dt>Телефон</dt><dd>".$user['phoneM']."</dd>";?>
   <dt>E-mail</dt><dd><?=$user['email']?></dd>
   <br />
-  <dt>Город</dt><dd>Казань</dd>
+  <dt>Город</dt><dd><?=$user['city']?></dd>
   <dt>День рождения</dt><dd>20 ноября 1992</dd>
   <br />
   <dt>Образование</dt><dd><a>КГФЭИ Рынок Ценных Бумаг</a></dd>

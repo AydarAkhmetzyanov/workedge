@@ -99,7 +99,7 @@ class User extends Model
 		return $stmt;
 	}
 	
-	public static function getUserById($id){
+	public static function getUserByIdForWall($id){
 	    global $db;
 		$stmt = $db->prepare("
 				SELECT  *
