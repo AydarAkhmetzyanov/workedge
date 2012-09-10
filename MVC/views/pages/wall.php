@@ -8,8 +8,8 @@
 		  <div class="span7">
     <h2><?=$user['firstName']?> <?=$user['secondName']?></h2>
   <dl class="dl-horizontal">
-  <?php if($user['phoneM']!='') echo '<dt>Телефон</dt><dd>+7 (951) 066-51-33</dd>';?>
-  <dt>E-mail</dt><dd>aydar@creatiestripe.ru</dd>
+  <?php if($user['phoneM']!='') echo "<dt>Телефон</dt><dd>".$user['phoneM']."</dd>";?>
+  <dt>E-mail</dt><dd><?=$user['email']?></dd>
   <br />
   <dt>Город</dt><dd>Казань</dd>
   <dt>День рождения</dt><dd>20 ноября 1992</dd>
