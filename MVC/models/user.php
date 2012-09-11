@@ -99,15 +99,15 @@ class User extends Model
 		return $stmt;
 	}
 	
-	public static function getUserByIdForWall($id){
+	public static function getUserForWall($uid){
 	    global $db;
 		$stmt = $db->prepare("
-				SELECT  *
-                FROM  `users` 
-                WHERE  `users`.`id` = :id
-				LIMIT 1
+				SELECT `users`.`id`, `users`.`email`, `users`.`firstName`, `users`.`secondName`, `users`.`phoneM`, `users`.`emailStatus`, TIMESTAMPDIFF( MINUTE ,`users`.`lastAccessTime`,NOW()) AS `lastOnline` , `city`.`name` AS `city`, `users`.`education`, `users`.`about`, `users`.`work`,`country`.`name` AS `country`
+				FROM `users` 
+				JOIN `city`, `country`
+				WHERE `users`.`id`= :uid and `users`.`city`=`city`.`city_id` and `city`.`country_id` = `country`.`country_id`
 				");
-		$stmt->execute( array('id' => $id) );
+		$stmt->execute( array('uid' => $uid) );
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$user=$stmt->fetch();
 		return $user;

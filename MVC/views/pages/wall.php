@@ -6,32 +6,42 @@
 		      <img src="/data/avatar/<?=$initWall?>/big.jpg" class="img-rounded">
 		  </div>
 		  <div class="span7">
-    <h2><?=$user['firstName']?> <?=$user['secondName']?></h2>
+    <h2 id="wallHeader" wallId="<?=$initWall?>"><?=$user['firstName']?> <?=$user['secondName']?></h2>
   <dl class="dl-horizontal">
   <?php if($user['phoneM']!='') echo "<dt>Телефон</dt><dd>".$user['phoneM']."</dd>";?>
   <dt>E-mail</dt><dd><?=$user['email']?></dd>
   <br />
+  <dt>Страна</dt><dd><?=$user['country']?></dd>
   <dt>Город</dt><dd><?=$user['city']?></dd>
-  <dt>День рождения</dt><dd>20 ноября 1992</dd>
   <br />
-  <dt>Образование</dt><dd><a>КГФЭИ Рынок Ценных Бумаг</a></dd>
-  <dt>О себе</dt><dd style="max-width: 400px;">Занимаюсь бегом, катаюсь на велосипеде, сноуборде. Увлекаюсь всем свзяанным с IT, особенно облачными технологиями, веб программированием, нейронными сетями, сетевой безопасностью. CEO CreativeStripe.com WorkEdge.org</dd>
+  <?php if($user['work']!='') echo "<dt>Сфера работы</dt><dd>".$user['work']."</dd>";?>
+  <?php if($user['education']!='') echo "<dt>Образование</dt><dd>".$user['education']."</dd>";?>
+  <?php if($user['about']!='') echo "<dt>О себе</dt><dd>".$user['about']."</dd>";?>
 </dl>
 		  </div>
 		  <div class="span2"><br /><br />
-		      <blockquote class="pull-right offlineBorder"><p>Offline</p></blockquote>
+		      <?php
+			  if($user['lastOnline']>10){
+			      echo '<blockquote class="pull-right offlineBorder"><p>Offline</p></blockquote>';
+			  } else {
+			      echo '<blockquote class="pull-right onlineBorder"><p>Online</p></blockquote>';
+			  }
+			  ?>
 			  <blockquote class="pull-right"><p><a>Сообщение</a> <i class="icon-pencil"></i></p></blockquote>
-			  <blockquote class="pull-right"><p><a>Задача</a> <i class="icon-tasks"></i></p></blockquote>
+			  <blockquote class="pull-right"><p><a onclick="taskFromWall()" data-toggle="modal" href="#addTaskModal">Задача</a> <i class="icon-tasks"></i></p></blockquote>
 		  </div>
 		  </div>
 		  
-		  <div class="row">
+		  <br /><div class="row">
 		  
 		  <div class="span8">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tabWall" data-toggle="tab">Стена</a></li>
-	<li class="pull-right"><a href="#tabProfile" data-toggle="tab"><i class="icon-user"></i></a></li>
+	<?php
+	if($user['id']==$_SESSION['id']){ ?>
 	<li class="pull-right"><a href="#tabSettings" data-toggle="tab"><i class="icon-cog"></i></a></li>
+	<li class="pull-right"><a href="#tabProfile" data-toggle="tab"><i class="icon-user"></i></a></li>
+	<?php } ?>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tabWall">

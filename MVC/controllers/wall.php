@@ -11,8 +11,7 @@ class WallController extends Controller {
 			
 			if($initWall==0){ $initWall=$_SESSION['id']; }
 		    $data['initWall'] = $initWall;
-			$data['user'] = User::getUserByIdForWall($initWall);
-			
+			$data['user'] = User::getUserForWall($initWall);
 		    renderView('pages/'.CONTROLLER,$data);
 		    renderView('footer');
 			echo '<!--'.round(timeMeasure()-TIMESTART, 6).' sec. -->';
