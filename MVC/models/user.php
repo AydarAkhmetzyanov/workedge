@@ -63,6 +63,7 @@ class User extends Model
 					ORDER BY `companymembership`.`access` DESC
 				");
 				$stmt->execute( array('userId' => $table['id']) );
+				$_SESSION['companyMembershipCount'] = $stmt->rowCount();
 				if($stmt->rowCount() > 0){
 				    $stmt->setFetchMode(PDO::FETCH_ASSOC);
 				    $table=$stmt->fetch();
@@ -72,7 +73,6 @@ class User extends Model
 					$_SESSION['maxAccess'] = $table['access'];
 					$_SESSION['position'] = $table['position'];
 					$_SESSION['plan'] = $table['plan'];
-					$_SESSION['companyMembershipCount'] = $stmt->rowCount();
 				} else {
 				    $_SESSION['access'] = 0;
 				}
@@ -112,5 +112,41 @@ class User extends Model
 		$user=$stmt->fetch();
 		return $user;
 	}
+	
+	public static function updateOnlineStatus(){
+	    global $db;
+		$stmt = $db->prepare("
+				UPDATE `users` SET `lastAccessTime`=NOW() WHERE `id` = :uid
+				");
+		$stmt->execute( array('uid' => $_SESSION['id']) );
+	}
+	
+	public static function getCoWorkersJSON(){
+	    global $db;
+		if($_POST['filterCompany']=='0'){
+		    $stmt = $db->prepare("
+				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`
+				FROM `companymembership` cm,`users` us,`companies` cs
+				WHERE cm.`companyId` IN (SELECT DISTINCT sq.`companyId` FROM `companymembership` sq WHERE sq.`userId` = :uid) AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id`
+				ORDER BY cm.`companyId`,cm.`position`
+				");
+				$stmt->execute( array('uid' => $_SESSION['id']) );
+		} else {
+		    $stmt = $db->prepare("
+				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`
+				FROM `companymembership` cm,`users` us,`companies` cs
+				WHERE cm.`companyId`=:cid AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id`
+				ORDER BY cm.`companyId`,cm.`position`
+				");
+		    $stmt->execute( array('cid' => $_POST['filterCompany']) );  
+		}
+        if($stmt->rowCount()>0){
+		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		    return json_encode($stmt->fetchAll());
+		} else {
+		    return "0";
+		}	
+	}
+	
 	
 }

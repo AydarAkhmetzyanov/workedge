@@ -8,7 +8,7 @@ class WallController extends Controller {
 		} else {
 			Header::render();
 			$data = array();
-			
+			$data['MembershipList'] = User::getMembershipList();
 			if($initWall==0){ $initWall=$_SESSION['id']; }
 		    $data['initWall'] = $initWall;
 			$data['user'] = User::getUserForWall($initWall);

@@ -39,7 +39,7 @@ function loadTable(){
 		filterCompete: $('#filterCompete').hasClass('active') 
 		},
         tableLoaded, 
-        "html"
+        "text"  //html if errors
     );
 }
 

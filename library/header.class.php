@@ -30,6 +30,7 @@ class Header
 
 		renderView('header', $data);
 		if(CONTROLLER != 'login'){
+		    User::updateOnlineStatus();
 		    $data['MembershipList'] = User::getMembershipList();
 			$data['newMessages'] = 2;                                           //todo messages		
 			$updatedTasks = TaskList::getUpdatedTasks();
