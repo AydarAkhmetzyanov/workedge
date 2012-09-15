@@ -64,10 +64,8 @@
           </div>
  <div class="tab-pane active" id="tabCoWorkers">
 	<div class="row">
-	<div style="float:left;">
-	<img style="margin-left:40px;" class="img-rounded" src="/data/avatar/1/small.jpg"></div>
-	<div><blockquote class="pull-right offlineBorder"><p>Ахметзянов Айдар</p>
-<small>Генеральный директор <a>CreativeStripe</a></small></blockquote></div>
+	<div style="float:left;"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/1/small.jpg"></div>
+	<div><blockquote class="pull-right offlineBorder"><p>Ахметзянов Айдар</p><small>Генеральный директор <a>CreativeStripe</a></small></blockquote></div>
 	</div>
 	<div class="row">
 	<div style="float:left;">

@@ -123,22 +123,22 @@ class User extends Model
 	
 	public static function getCoWorkersJSON(){
 	    global $db;
-		if($_POST['filterCompany']=='0'){
+		if((!isset($_POST['filterCompany']))or($_POST['filterCompany']=='0')){
 		    $stmt = $db->prepare("
-				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`
+				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`,TIMESTAMPDIFF( MINUTE ,us.`lastAccessTime`,NOW()) AS `lastOnline`
 				FROM `companymembership` cm,`users` us,`companies` cs
-				WHERE cm.`companyId` IN (SELECT DISTINCT sq.`companyId` FROM `companymembership` sq WHERE sq.`userId` = :uid) AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id`
+				WHERE cm.`companyId` IN (SELECT DISTINCT sq.`companyId` FROM `companymembership` sq WHERE sq.`userId` = :uid) AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id` AND NOT cm.`userId`=:uid
 				ORDER BY cm.`companyId`,cm.`position`
 				");
-				$stmt->execute( array('uid' => $_SESSION['id']) );
+				$stmt->execute( array('uid' => $_POST['wallId']) );
 		} else {
 		    $stmt = $db->prepare("
-				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`
+				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`,TIMESTAMPDIFF( MINUTE ,us.`lastAccessTime`,NOW()) AS `lastOnline`
 				FROM `companymembership` cm,`users` us,`companies` cs
-				WHERE cm.`companyId`=:cid AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id`
+				WHERE cm.`companyId`=:cid AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id` AND NOT cm.`userId`=:uid
 				ORDER BY cm.`companyId`,cm.`position`
 				");
-		    $stmt->execute( array('cid' => $_POST['filterCompany']) );  
+		    $stmt->execute( array('cid' => $_POST['filterCompany'],'uid' => $_POST['wallId']) );  
 		}
         if($stmt->rowCount()>0){
 		    $stmt->setFetchMode(PDO::FETCH_ASSOC);

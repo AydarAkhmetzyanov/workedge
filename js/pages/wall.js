@@ -23,7 +23,8 @@ function loadCoWorkers(){
 	$.post(
         "/wall_ajax/loadCoWorkers",
         { 
-		filterCompany: $("#coWorkerFilterStatus").attr("cid") 
+		filterCompany: $("#coWorkerFilterStatus").attr("cid"),
+		wallId: $('#wallHeader').attr("wallId")
 		},
         coWorkersLoaded, 
         "text"
@@ -31,12 +32,12 @@ function loadCoWorkers(){
 }
 
 function coWorkersLoaded(data){
-alert(data);
+dataObject=jQuery.parseJSON(data);
 	if (data=='0'){
 	    $('#tabCoWorkers').hide();
 	    $('#emptyCoWorkersAlert').show("slow");
 	} else {
-        renderCoWorkers(jQuery.parseJSON(data));
+        renderCoWorkers(dataObject);
 		$('#tabCoWorkers').show("slow");
 	    $('#emptyCoWorkersAlert').hide();
 	}
@@ -47,62 +48,18 @@ function renderCoWorkers(coWorkers){
 	var appendhtml;
 	var dubs=[];
 	$.each(coWorkers, function(key, value) {
-	    if(!in_array(value.taskId, dubs)){
-		dubs.push(value.taskId);
-	    appendhtml='<tr id="'+value.taskId;
-		appendhtml+='" ';
-		if(value.updated == '1'){
-			    appendhtml+='class="info"';
-   		}
-		appendhtml+='><td ';
-		if(value.status == '3'){
-			appendhtml+='></td><td><i class="icon-ok-sign"></i>';
-   		} else {
-		    if(value.role == '3'){
-			    appendhtml+='></td><td><i class="';
-			} else {
-			    appendhtml+='class="pointer makeDone"><i class="icon-ok-circle"></i></td><td id="stat"><i class="';
-			}
-			if(value.status == '1'){
-			    appendhtml+='icon-time';
-			} else {
-			    appendhtml+='icon-play-circle';
-			}
-			appendhtml+='"></i>';
-		}
-	    appendhtml+='</td><td class="pointer showTask"><a>'+value.name+'</a></td><td><a href="/wall/'+value.oId+'">'+value.oFirstName+' '+value.oSecondName+'</a></td><td>';
-		
-		appendhtml+='<a href="/wall/'+value.rId+'">'+value.rFirstName+' '+value.rSecondName+'</a>';
-		
-		appendhtml+='</td><td><div class="progress ';
-		var percent=100;
-		var color;
-		if(value.status=='3'){
-		    if(value.difDF <= 0){
-				color='progress-success';
-			}else{
-			    color='progress-danger';
-			}
+	    if((!in_array(value.userId, dubs))&&(value.userId != $('#wallHeader').attr("wallId"))){
+		dubs.push(value.userId);
+	    appendhtml='<div class="row"><div style="float:left;"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/'+value.userId;
+		appendhtml+='/small.jpg"></div><div><blockquote class="pull-right ';
+		if(value.lastOnline > 10){ 
+		    appendhtml+='offline';
 		} else {
-		    if(value.difDN <= 0){
-			    percent=(value.difCD-value.difDN)/value.difCD;
-				percent*=100;
-				if(percent>70){
-				    color='progress-warning';
-				}else{
-				    color='';
-				}
-			}else{
-			    percent=(value.difDN*(-1))/value.difCD;
-				percent*=100;
-				if(percent>99){
-				    percent=100;
-				}
-				color='progress-danger';
-			}
+		    appendhtml+='online';
 		}
-		appendhtml+=color+'"><div class="bar" style="width: '+percent.toFixed()+'%;"></div></div></td></tr>';
-		$("#tasksTable").append(appendhtml);
+		appendhtml+='Border"><p><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName;
+		appendhtml+='</a></p><small>'+value.position+' <a href="/company/'+value.companyId+'">'+value.name+'</a></small></blockquote></div></div>';
+		$("#tabCoWorkers").append(appendhtml);
     }});
 	
 }
