@@ -63,3 +63,8 @@ function renderCoWorkers(coWorkers){
     }});
 	
 }
+
+function handleFiles(files) {
+    alert(files);
+}
+

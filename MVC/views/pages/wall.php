@@ -3,7 +3,18 @@
 <div class="span12">
           <div class="row">
 		  <div class="span3"><br />
-		      <img src="/data/avatar/<?=$initWall?>/big.jpg" class="img-rounded">
+		      <img src="/data/avatar/<?=$initWall?>/big.jpg<?php if((isset($uploadError))and($uploadError==0)){ echo '?'.rand(1,100);}?>" class="img-rounded <?php if($initWall==$_SESSION['id']) echo 'pointer';?>" onclick="$('#avatarForm').show('slow');"><br /><br />
+			  <?php
+			  if((isset($uploadError))and($uploadError!=0)){
+			  echo $uploadError;
+			  }
+			  ?>
+			  <?php if($initWall==$_SESSION['id']){ 
+			  ?>
+			  <form style="display:none;" id="avatarForm" method="post" enctype="multipart/form-data">Загрузка фотографии
+              <input onchange="document.forms['avatarForm'].submit();" type="file" name="avatar" id="avatarInput" />
+			  </form>
+			  <?php } ?>
 		  </div>
 		  <div class="span7">
     <h2 id="wallHeader" wallId="<?=$initWall?>"><?=$user['firstName']?> <?=$user['secondName']?></h2>
@@ -14,9 +25,9 @@
   <dt>Страна</dt><dd><?=$user['country']?></dd>
   <dt>Город</dt><dd><?=$user['city']?></dd>
   <br />
-  <?php if($user['work']!='') echo "<dt>Сфера работы</dt><dd>".$user['work']."</dd>";?>
-  <?php if($user['education']!='') echo "<dt>Образование</dt><dd>".$user['education']."</dd>";?>
-  <?php if($user['about']!='') echo "<dt>О себе</dt><dd>".$user['about']."</dd>";?>
+  <?php if($user['work']!='') echo '<dt>Сфера работы</dt><dd>'.$user['work'].'</dd>';?>
+  <?php if($user['education']!='') echo '<dt>Образование</dt><dd>'.$user['education'].'</dd>';?>
+  <?php if($user['about']!='') echo '<dt>О себе</dt><dd>'.$user['about'].'</dd>';?>
 </dl>
 		  </div>
 		  <div class="span2"><br /><br />
