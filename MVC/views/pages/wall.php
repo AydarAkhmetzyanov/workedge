@@ -44,12 +44,12 @@
 		  </div>
 		  
 		  <br /><div class="row">
-		  <div class="span5">
+		  <div class="span6">
     <ul class="nav nav-tabs">
 	
 	<?php if($_SESSION['companyMembershipCount']>1){ ?>
 	<li style="margin-top:4px;"><div class="btn-group pull-right dropdown" style="margin-left:5px;">
-            <a class="btn btn-small" id="coWorkerFilterStatus" cid="0" href="/company/1">Все сотрудники</a>
+            <a class="btn btn-small disabled" id="coWorkerFilterStatus" cid="0" href="/company">Все сотрудники</a>
 			<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 						<li><a class="coWorkerFilter" cid="0">Все сотрудники</a></li>
@@ -93,7 +93,7 @@
     </div>
   </div>
 		  </div>
-		  <div class="span7">
+		  <div class="span6">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tabWall" data-toggle="tab">Стена</a></li>
 	<?php

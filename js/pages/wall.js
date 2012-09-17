@@ -5,6 +5,11 @@ $(document).ready(function() {
 		    $("#coWorkerFilterStatus").attr("cid",$(this).attr("cid"));
 			$("#coWorkerFilterStatus").html($(this).html());
 			$("#coWorkerFilterStatus").attr("href","/company/"+$(this).attr("cid"));
+			if($(this).attr("cid")==0){
+			    $("#coWorkerFilterStatus").removeClass("disabled").addClass("disabled");
+			}else{
+			    $("#coWorkerFilterStatus").removeClass("disabled");
+			}
 			loadCoWorkers();
 		}
     });
@@ -50,21 +55,17 @@ function renderCoWorkers(coWorkers){
 	$.each(coWorkers, function(key, value) {
 	    if((!in_array(value.userId, dubs))&&(value.userId != $('#wallHeader').attr("wallId"))){
 		dubs.push(value.userId);
-	    appendhtml='<div class="row"><div style="float:left;"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/'+value.userId;
-		appendhtml+='/small.jpg"></div><div><blockquote class="pull-right ';
+	    appendhtml='<div class="row"><div style="float:left;"><a href="/wall/'+value.userId+'"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/'+value.userId;
+		appendhtml+='/small.jpg"></a></div><div><blockquote class="pull-right ';
 		if(value.lastOnline > 10){ 
 		    appendhtml+='offline';
 		} else {
 		    appendhtml+='online';
 		}
-		appendhtml+='Border"><p><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName;
-		appendhtml+='</a></p><small>'+value.position+' <a href="/company/'+value.companyId+'">'+value.name+'</a></small></blockquote></div></div>';
+		appendhtml+='Border"><p><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName+'</a>';
+		appendhtml+='</p><small>'+value.position+' <a href="/company/'+value.companyId+'">'+value.name+'</a></small></blockquote></div></div>';
 		$("#tabCoWorkers").append(appendhtml);
     }});
 	
-}
-
-function handleFiles(files) {
-    alert(files);
 }
 

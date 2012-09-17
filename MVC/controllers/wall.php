@@ -31,6 +31,7 @@ class WallController extends Controller {
 								$img = new AcResizeImage($_FILES['avatar']['tmp_name']);
                                 $big = $img->cropSquare()->resize(48, 48)->save(ROOT.DS.'data'.DS.'avatar'.DS.$_SESSION['id'].DS, 'small', 'jpg', true, 100);
 								$data['uploadError'] = 0;
+								echo '<meta http-equiv="Cache-Control" content="no-cache" />';
 							}
 						}
 					}
