@@ -70,6 +70,48 @@
 	  <div id="descriptionWell" class="well">
   <p id="taskDescription"></p>
   </div>
+  
+  
+  
+  
+  <div class="">
+      <img style="margin-top:1px;" class="img-rounded" src="/data/avatar/1/small.jpg">
+      <textarea class="span11" rows="2"></textarea>
+      <div style="margin-top:0px;" class="btn-toolbar">
+              <div class="btn-group">
+                <a class="btn btn-primary" href="#">Отправить</a>
+                <a class="btn" href="#"><i class="icon-file"></i></a>
+              </div>
+            </div>
+  </div> 
+	
+	
+	
+	
+	
+	
+	<div class="" id="">
+	<div class="row" style="
+    margin-left: 0px;
+">
+<blockquote class="pull-right">
+<p>Офигеть я создал задачу</p>
+<small>Айдар Ахметзянов</small>
+</blockquote></div>
+<div class="row" style="
+    margin-left: 0px;
+"><blockquote>
+<p>Тут так удобно)</p>
+<small>Василий Нестеров</small>
+</blockquote></div>
+<div class="row" style="
+    margin-left: 0px;
+"><blockquote>
+<p>Попробуйте создать задачу</p>
+<small>Василий Нестеров</small>
+</blockquote></div>
+    </div>
+  
        </div>
    </div>
 </div>

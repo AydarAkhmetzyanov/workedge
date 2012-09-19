@@ -40,8 +40,9 @@ SELECT uri.`userId`
 FROM  `taskmembership` uri
 WHERE uri.`taskId` = main.`taskId` 
 AND uri.`role` =2 ) 
+GROUP BY main.`taskId`
 ORDER BY task.`timeDeadLine`
-LIMIT 40";
+LIMIT 50";
 		    $stmtTaskList = $db->prepare($query);
 		    $stmtTaskList->execute( array('userId' => $_SESSION['id']) );
 			if($stmtTaskList->rowCount()>0){

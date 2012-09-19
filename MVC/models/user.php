@@ -128,6 +128,7 @@ class User extends Model
 				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`,TIMESTAMPDIFF( MINUTE ,us.`lastAccessTime`,NOW()) AS `lastOnline`
 				FROM `companymembership` cm,`users` us,`companies` cs
 				WHERE cm.`companyId` IN (SELECT DISTINCT sq.`companyId` FROM `companymembership` sq WHERE sq.`userId` = :uid) AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id` AND NOT cm.`userId`=:uid
+				GROUP BY cm.`userId`
 				ORDER BY cm.`companyId`,cm.`position`
 				");
 				$stmt->execute( array('uid' => $_POST['wallId']) );
@@ -136,6 +137,7 @@ class User extends Model
 				SELECT cm.`userId` ,cm.`companyId`,cm.`position`,us.`firstName`,us.`secondName`,cs.`name`,TIMESTAMPDIFF( MINUTE ,us.`lastAccessTime`,NOW()) AS `lastOnline`
 				FROM `companymembership` cm,`users` us,`companies` cs
 				WHERE cm.`companyId`=:cid AND cm.`userId`=us.`id` AND cm.`companyId` = cs.`id` AND NOT cm.`userId`=:uid
+				GROUP BY cm.`userId`
 				ORDER BY cm.`companyId`,cm.`position`
 				");
 		    $stmt->execute( array('cid' => $_POST['filterCompany'],'uid' => $_POST['wallId']) );  

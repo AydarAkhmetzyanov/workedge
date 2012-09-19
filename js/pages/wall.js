@@ -51,10 +51,7 @@ dataObject=jQuery.parseJSON(data);
 function renderCoWorkers(coWorkers){
     $("#tabCoWorkers").html('');
 	var appendhtml;
-	var dubs=[];
 	$.each(coWorkers, function(key, value) {
-	    if((!in_array(value.userId, dubs))&&(value.userId != $('#wallHeader').attr("wallId"))){
-		dubs.push(value.userId);
 	    appendhtml='<div class="row"><div style="float:left;"><a href="/wall/'+value.userId+'"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/'+value.userId;
 		appendhtml+='/small.jpg"></a></div><div><blockquote class="pull-right ';
 		if(value.lastOnline > 10){ 
@@ -65,7 +62,7 @@ function renderCoWorkers(coWorkers){
 		appendhtml+='Border"><p><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName+'</a>';
 		appendhtml+='</p><small>'+value.position+' <a href="/company/'+value.companyId+'">'+value.name+'</a></small></blockquote></div></div>';
 		$("#tabCoWorkers").append(appendhtml);
-    }});
+    });
 	
 }
 

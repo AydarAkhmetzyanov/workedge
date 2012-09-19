@@ -109,10 +109,7 @@ function taskLoaded(data){
 function renderTasksTable(tasks){
     $("#tasksTable").html('');
 	var appendhtml;
-	var dubs=[];
 	$.each(tasks, function(key, value) {
-	    if(!in_array(value.taskId, dubs)){
-		dubs.push(value.taskId);
 	    appendhtml='<tr id="'+value.taskId;
 		appendhtml+='" ';
 		if(value.updated == '1'){
@@ -167,7 +164,7 @@ function renderTasksTable(tasks){
 		}
 		appendhtml+=color+'"><div class="bar" style="width: '+percent.toFixed()+'%;"></div></div></td></tr>';
 		$("#tasksTable").append(appendhtml);
-    }});
+    });
 }
 
 function renderTask(task){
