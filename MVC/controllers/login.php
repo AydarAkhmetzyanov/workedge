@@ -15,4 +15,8 @@ class LoginController extends Controller {
 		}
 	}
 	
+	public function test($email = 'aydar@creativestripe.ru'){
+	    echo Mail::sendInvite($email, 'http://vk.com', 'Айдар', 'Ахметзянов', 'CreativeStripe');
+	}
+	
 }
