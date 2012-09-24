@@ -3,7 +3,7 @@
 class Mail
 {
     
-    public static function send($html, $email) { //тут составляются заголовки и отправляется письмо
+    public static function send($html, $email) { //С‚СѓС‚ СЃРѕСЃС‚Р°РІР»СЏСЋС‚СЃСЏ Р·Р°РіРѕР»РѕРІРєРё Рё РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ РїРёСЃСЊРјРѕ
 		echo 'send';
 		$result = true;
 		return $result;
@@ -11,18 +11,18 @@ class Mail
 	
 	
 	
-    public static function sendPasswordRecovery($email, $recoveryLink, $firstName, $lastName) {  //восстановление пароля для пользователя
-	    $html = 'генерация письма';
+    public static function sendPasswordRecovery($email, $recoveryLink, $firstName, $lastName) {  //РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїР°СЂРѕР»СЏ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	    $html = 'РіРµРЅРµСЂР°С†РёСЏ РїРёСЃСЊРјР°';
 		return Mail::send($html,$email);
 	}
 	
-	public static function sendInvite($email, $inviteLink, $firstName, $lastName, $company) {  //приглашение нового пользователя в организацию
-	    $html = 'генерация письма';
+	public static function sendInvite($email, $inviteLink, $firstName, $lastName, $company) {  //РїСЂРёРіР»Р°С€РµРЅРёРµ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РѕСЂРіР°РЅРёР·Р°С†РёСЋ
+	    $html = 'РіРµРЅРµСЂР°С†РёСЏ РїРёСЃСЊРјР°';
 		return Mail::send($html,$email);
 	}
 	
-	public static function sendEmailValidation($email, $inviteLink, $firstName, $lastName) {  //подтверждение email
-	    $html = 'генерация письма';
+	public static function sendEmailValidation($email, $inviteLink, $firstName, $lastName) {  //РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ email
+	    $html = 'РіРµРЅРµСЂР°С†РёСЏ РїРёСЃСЊРјР°';
 		return Mail::send($html,$email);
 	}
 	
