@@ -76,7 +76,7 @@
   
   <div class="">
       <img style="margin-top:1px;" class="img-rounded" src="/data/avatar/1/small.jpg">
-      <textarea class="span11" rows="2"></textarea>
+      <textarea class="span10" rows="2"></textarea>
       <div style="margin-top:0px;" class="btn-toolbar">
               <div class="btn-group">
                 <a class="btn btn-primary" href="#">Отправить</a>

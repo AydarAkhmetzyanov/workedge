@@ -6,7 +6,7 @@ class Task extends Model
 	public static function makeComplete($taskId){
 	    global $db;
 		$stmt = $db->prepare('
-			SELECT `role`
+			SELECT `role`,`isDone`
 			FROM  `taskmembership` 
 			WHERE  `taskId` = :taskId
 			AND  `userId` = :userId
@@ -32,10 +32,10 @@ class Task extends Model
 			$stmtupm->execute( array(
 		        'taskId' => $taskId
 		    ));
-			$stmtupm = $db->prepare('
+			$stmtupm2 = $db->prepare('
 			    UPDATE `taskmembership` SET `updated`=0 WHERE `taskId`=:taskId and `userId`=:userId
 			');
-			$stmtupm->execute( array(
+			$stmtupm2->execute( array(
 		        'taskId' => $taskId,
 				'userId' => $_SESSION['id']
 		    ));
@@ -208,7 +208,7 @@ class Task extends Model
 	public static function getJSON($taskId){
 	    global $db;
 		$stmt = $db->prepare('
-			SELECT `role`,`updated`
+			SELECT `role`,`updated`,`isDone`
 			FROM  `taskmembership` 
 			WHERE  `taskId` = :taskId
 			AND  `userId` = :userId
@@ -231,19 +231,21 @@ class Task extends Model
 				    'userId' => $_SESSION['id']
 				));
 				if($table['role']=='2'){
-				    $stmttup = $db->prepare('
-				        UPDATE `tasks` SET `status`=2 WHERE `id`=:id
-			        ');
-					$stmttup->execute( array(
-				        'id' => $taskId
-				    ));
-					$stmtup = $db->prepare('
-				        UPDATE `taskmembership` SET `updated`=1 WHERE `taskId`=:taskId and NOT(`userId`=:userId)
-			        ');
-				    $stmtup->execute( array(
-				        'taskId' => $taskId,
-				        'userId' => $_SESSION['id']
-				    ));
+				    if($table['isDone']=='0'){
+				        $stmttup = $db->prepare('
+				            UPDATE `tasks` SET `status`=2 WHERE `id`=:id
+			            ');
+					    $stmttup->execute( array(
+				            'id' => $taskId
+				        ));
+					    $stmtup = $db->prepare('
+				            UPDATE `taskmembership` SET `updated`=1 WHERE `taskId`=:taskId and NOT(`userId`=:userId)
+			            ');
+				        $stmtup->execute( array(
+				            'taskId' => $taskId,
+				           'userId' => $_SESSION['id']
+				        ));
+					}
 				}
 			}
 		    $stmtMembers = $db->prepare('
