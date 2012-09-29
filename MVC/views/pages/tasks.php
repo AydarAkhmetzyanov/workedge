@@ -79,37 +79,52 @@
       <textarea class="span10" rows="2"></textarea>
       <div style="margin-top:0px;" class="btn-toolbar">
               <div class="btn-group">
-                <a class="btn btn-primary" href="#">Отправить</a>
-                <a class="btn" href="#"><i class="icon-file"></i></a>
+                <a class="btn btn-primary" onclick="$('#sendMessage').button('toggle');$('#includeFile').button('toggle');" id="sendMessage" href="#">Отправить</a>
+                <a class="btn" id="includeFile" href="#"><i class="icon-file"></i><span id="taskFileUploadProgress"> 85%</span></a>
               </div>
             </div>
+			<div id="file-uploader-list">
+			<table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td><i class="icon-file"></i></td>
+                  <td>C:\Users\Aydar\Desktop\8.5\root\workedge\library</td>
+				  <td><i class="icon-minus pointer"></i></td>
+                </tr>
+				<tr>
+                  <td><i class="icon-file"></i></td>
+                  <td>C:\Users\Aydar\Desktop\8.5\root\workedge\library</td>
+				  <td><i class="icon-minus pointer"></i></td>
+                </tr>
+				<tr>
+                  <td><i class="icon-file"></i></td>
+                  <td>C:\Users\Aydar\Desktop\8.5\root\workedge\library</td>
+				  <td><i class="icon-minus pointer"></i></td>
+                </tr>
+              </tbody>
+            </table>
+			</div>
   </div> 
-	
-	
-	
-	
-	
-	
+  
 	<div class="" id="">
-	<div class="row" style="
-    margin-left: 0px;
-">
-<blockquote class="pull-right">
-<p>Офигеть я создал задачу</p>
+	
+
+	<div class="row chatPost">
+<blockquote class="pull-right onlineBorder">
+<div style="float:left;">
+<p style="width: 80%;float:right;">Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.. Здесь ваш текст.. Здесь ваш текст.." Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам "lorem ipsum" сразу показывает, как много веб-страниц всё ещё дожидаются своего настоящего рождения. За прошедшие годы текст Lorem Ipsum получил много версий. Некоторые версии появились по ошибке, некоторые - намеренно (например, юмористические варианты).
+</p>
 <small>Айдар Ахметзянов</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote>
-<p>Тут так удобно)</p>
-<small>Василий Нестеров</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote>
-<p>Попробуйте создать задачу</p>
-<small>Василий Нестеров</small>
-</blockquote></div>
+</div>
+<div style="float:right;">
+<img class="img-rounded" src="/data/avatar/1/small.jpg">
+</div>
+</blockquote>
+</div>
+
+
+
+
     </div>
   
        </div>

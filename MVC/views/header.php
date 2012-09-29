@@ -10,6 +10,7 @@
 	<?= HTML::includeJS("pages/".CONTROLLER);?>
 	<?= HTML::includeJS('bootstrap.min');?>
 	<?= HTML::includeJS('bootstrap-datepicker');?>
+	<?= HTML::includeJS('fileuploader');?>
     <?= HTML::includeJS('main');?>
 	<?= HTML::includeJS('addTask');?>
 	

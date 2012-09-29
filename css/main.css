@@ -57,6 +57,8 @@ h2 + .row {
 	background-color:#EFFAFF;
 	}
 	
+	
+	/* чат */
 	blockquote.pull-right.onlineBorder {
 	border-right: 5px solid #A1E7A1;
 	}
@@ -69,10 +71,24 @@ h2 + .row {
 	border-right: 5px solid #BEE5FF;
 	}
 	
-	blockquote {
+	blockquote.pull-left.onlineBorder {
+	border-left: 5px solid #A1E7A1;
+	}
+
+	blockquote.pull-left.offlineBorder {
+	border-left: 5px solid #EEE;
+	}
+	
+	blockquote.pull-left {
 	border-left: 5px solid #BEE5FF;
 	}
 	
+	.chatPost {
+	   margin-left: 0px;
+	}
+	
+	
+	/* аватарка панели */
 	.panelAvatar {
 	  height: 35px;
 	  float:left;
@@ -80,4 +96,5 @@ h2 + .row {
 	  margin-right: 10px;
 	  margin-left: 10px;
 	}
+	
 	
