@@ -22,6 +22,14 @@ h2 + .row {
 	      cursor:pointer;
 	  }
 	  
+	  .floatLeft{
+	     float: left;
+	  }
+	  
+	  .floatRight{
+	     float: right;
+	  }
+	  
 	  tr.active{
 	      background-color: #EFFFEF;
 	  }
@@ -87,6 +95,32 @@ h2 + .row {
 	   margin-left: 0px;
 	}
 	
+	.chatImgRight {
+	  margin-left: 10px;
+	  height: 40px;
+	  width: 40px;
+	  margin-top: 3px;
+	}
+	
+	.chatImgLeft {
+	  margin-right: 10px;
+	  height: 40px;
+	  width: 40px;
+	  margin-top: 3px;
+	}
+	
+	.postDesc {
+	width: 80%;
+	font-size:15px;
+	}
+	
+	.tablePostFiles{
+	width:80%;
+	}
+	
+	.postTextArea{
+	width: 80%;
+	}
 	
 	/* аватарка панели */
 	.panelAvatar {

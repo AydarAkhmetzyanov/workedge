@@ -12,26 +12,6 @@ $(document).ready(function() {
         "text"
     );}
 	
-	var taskFileUploader = new qq.FileUploaderBasic({
-        action: '/server/upload',
-		autoUpload: false,
-		sizeLimit: 10000000,
-		button: document.getElementById('includeFile'),
-		onSubmit: function(id, fileName) { 
-		    alert(id+' '+fileName); 
-		},
-		onError: function(id, fileName, errorReason) { 
-		    alert('error '+errorReason+fileName); 
-		},
-		onComplete: function(id, fileName, responseJSON) { 
-		    alert('success '+fileName+' '+JSON.stringify(responseJSON)); 
-		}
-    });
-	
-	$('#sendMessage').click(function() {
-        taskFileUploader.uploadStoredFiles();
-    });
-	
 	loadTable();
 });
 

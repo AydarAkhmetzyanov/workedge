@@ -44,7 +44,7 @@
 		  </div>
 		  
 		  <br /><div class="row">
-		  <div class="span6">
+		  <div class="span5">
     <ul class="nav nav-tabs">
 	
 	<?php if($_SESSION['companyMembershipCount']>1){ ?>
@@ -74,26 +74,11 @@
             
           </div>
  <div class="tab-pane active" id="tabCoWorkers">
-	<div class="row">
-	<div style="float:left;"><img style="margin-left:40px;" class="img-rounded" src="/data/avatar/1/small.jpg"></div>
-	<div><blockquote class="pull-right offlineBorder"><p>Ахметзянов Айдар</p><small>Генеральный директор <a>CreativeStripe</a></small></blockquote></div>
-	</div>
-	<div class="row">
-	<div style="float:left;">
-	<img style="margin-left:40px;" class="img-rounded" src="/data/avatar/1/small.jpg"></div>
-	<div><blockquote class="pull-right offlineBorder"><p>Руслан Палатов</p>
-<small>Операционный директор <a>CreativeStripe</a></small></blockquote></div>
-	</div>
-	<div class="row">
-	<div style="float:left;">
-	<img style="margin-left:40px;" class="img-rounded" src="/data/avatar/1/small.jpg"></div>
-	<div><blockquote class="pull-right onlineBorder"><p>Дмитрий Алексеев</p>
-<small>Временный работник <a>CreativeStripe</a></small></blockquote></div>
-	</div>
+
     </div>
   </div>
 		  </div>
-		  <div class="span6">
+		  <div class="span7">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tabWall" data-toggle="tab">Стена</a></li>
 	<?php
@@ -104,37 +89,9 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tabWall">
-	<div class="row" style="
-    margin-left: 0px;
-">
-<blockquote class="pull-right">
-<p>Офигеть я создал задачу</p>
-<small>Айдар Ахметзянов</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote>
-<p>Тут так удобно)</p>
-<small>Василий Нестеров</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote>
-<p>Попробуйте создать задачу</p>
-<small>Василий Нестеров</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote class="pull-right">
-<p>Ну так</p>
-<small>Руслан Палатов</small>
-</blockquote></div>
-<div class="row" style="
-    margin-left: 0px;
-"><blockquote>
-<p>Пацаны вы тут сидите?</p>
-<small>Айдар Ахметзянов</small>
-</blockquote></div>
+	<?php
+  Wall::render();
+  ?> 
     </div>
 	<div class="tab-pane" id="tabProfile">
       <p>tabProfile</p>
