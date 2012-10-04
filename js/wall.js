@@ -1,6 +1,6 @@
 $(document).ready(function() {
       	var fileUploader = new qq.FileUploaderBasic({
-        action: '/'+$('#wallType').attr("wallType")+'_ajax/post',
+        action: '/'+$('#wallType').attr("wallType")+'_ajax/add_file',
 		autoUpload: false,
 		sizeLimit: 20000000,
 		button: document.getElementById('includeFile'),
@@ -16,20 +16,51 @@ $(document).ready(function() {
 		},
 		onComplete: function(id, fileName, responseJSON) { 
 		    alert('success '+fileName+' '+JSON.stringify(responseJSON));
+			//add file to last post
+			//delete thisId stored file
 			
+			if($("#storedFiles").html()==''){
+	            $('#sendMessage').button('toggle');
+		        $('#includeFile').button('toggle');
+	        }
 		}
     });
 	
-	$('#sendMessage').click(function() {
-        fileUploader.uploadStoredFiles();
-    });
-	
-	document.getElementById('includeFile').onclick = function() {
+	$('#includeFile').click(function() {
+	    uploadCount=0;
         fileUploader.clearStoredFiles();
 		$("#storedFiles").html('');
-    };
+    });
+	
+	$('#sendMessage').click(function() {
+	    if(!$('#sendMessage').hasClass('active')){
+		    if($(".postTextArea").val().length != 0) {
+		        $('#sendMessage').button('toggle');
+				$('#includeFile').button('toggle');
+			    $.post(
+                '/'+$('#wallType').attr("wallType")+'_ajax/post',
+                { 
+		            filterCompany: $(".postTextArea").attr("value"),
+		        },
+                postSent, 
+                "text"
+                );	
+			} else {
+				$(".postTextArea").focus();
+			}
+		}
+        return false;		
+    });
 
+	function postSent(data){
+    //renderTaskPost();
+	    if($("#storedFiles").html()==''){
+	        $('#sendMessage').button('toggle');
+		    $('#includeFile').button('toggle');
+	    } else {
+            fileUploader.uploadStoredFiles();
+	    }	
+    }
 	
   });
- 
  

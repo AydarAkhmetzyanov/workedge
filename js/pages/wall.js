@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    
 	$(".coWorkerFilter").click(function() {
 	    if($("#coWorkerFilterStatus").attr("cid") != $(this).attr("cid")){
 		    $("#coWorkerFilterStatus").attr("cid",$(this).attr("cid"));

@@ -1,10 +1,10 @@
   <?=HTML::includeJS('wall');?>
-  <div id="wallType" wallType="<?=CONTROLLER?>">
+  <div class="control-group" id="wallType" wallType="<?=CONTROLLER?>">
       <img style="margin-top:1px;" class="img-rounded" src="/data/avatar/1/small.jpg">
-      <textarea class="postTextArea" rows="2"></textarea>
+      <textarea required class="postTextArea info" rows="2"></textarea>
       <div style="margin-top:0px;" class="btn-toolbar">
               <div class="btn-group">
-                <a class="btn btn-primary" onclick="$('#sendMessage').button('toggle');$('#includeFile').button('toggle');" id="sendMessage" href="#">Отправить</a>
+                <a class="btn btn-primary" id="sendMessage" href="#">Отправить</a>
                 <a class="btn" id="includeFile" href="#"><i class="icon-file"></i></a>
               </div>
             </div>
@@ -82,3 +82,4 @@
 
 
     </div>
+	<div><button id="loadMore" class="btn btn-large btn-block" type="button">Загрузить еще...</button></div>

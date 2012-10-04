@@ -1,7 +1,5 @@
 <?php
 
-//wallJs is a part of module
-
 class Wall
 {
 

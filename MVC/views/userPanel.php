@@ -8,12 +8,12 @@
   <?=$menuActions?>
 </ul>
             <div style="margin-left:5px;" class="btn-group pull-right">
-            <a class="btn btn-small" onclick="logOut();" href="#">
+            <a class="btn" onclick="logOut();" href="#">
               <i class="icon-off"></i></a>
           </div>
           <div class="btn-group pull-right dropdown" style="margin-left:5px;">
-            <a class="btn btn-small" href="/company"><i class="icon-briefcase"></i> <?=$_SESSION['name']?></a>
-			<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+            <a class="btn" href="/company"><i class="icon-briefcase"></i> <?=$_SESSION['name']?></a>
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 			<?php
 			if($_SESSION['access']>=100){
@@ -36,13 +36,13 @@
             </ul>
           </div>
 		  <div class="btn-group pull-right">
-            <a class="btn btn-small <?=$tasksButton?>" href="/tasks">
+            <a class="btn <?=$tasksButton?>" href="/tasks">
               <i class="icon-tasks"></i> <?=$activeTasks?>
             </a>
-			<a class="btn btn-small <?=$tasksButton?>" data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i></a>
+			<a class="btn <?=$tasksButton?>" data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i></a>
           </div>
 		  <div class="btn-group pull-right">
-            <a class="btn btn-small <? if($newMessages >0){ echo 'btn-success'; } else { echo ''; }?>" href="/messages">
+            <a class="btn <? if($newMessages >0){ echo 'btn-success'; } else { echo ''; }?>" href="/messages">
               <i class="icon-envelope"></i> <?=$newMessages?>
             </a>
           </div>
