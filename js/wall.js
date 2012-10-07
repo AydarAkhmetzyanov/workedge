@@ -1,6 +1,16 @@
 $(document).ready(function() {
-      	var fileUploader = new qq.FileUploaderBasic({
-        action: '/'+$('#wallType').attr("wallType")+'_ajax/add_file',
+
+    var engine = {
+	    posts : [],
+	    target : null,//wallPosts
+	    busy : false,
+	    count : 5
+		
+		
+    }
+
+    var fileUploader = new qq.FileUploaderBasic({
+        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$('#wallType').attr("childId"),
 		autoUpload: false,
 		sizeLimit: 20000000,
 		button: document.getElementById('includeFile'),
@@ -15,7 +25,7 @@ $(document).ready(function() {
 		    alert('error '+errorReason+fileName); 
 		},
 		onComplete: function(id, fileName, responseJSON) { 
-		    alert('success '+fileName+' '+JSON.stringify(responseJSON));
+		    alert('onComplete '+fileName+' '+JSON.stringify(responseJSON));
 			//add file to last post
 			//delete thisId stored file
 			
@@ -38,9 +48,9 @@ $(document).ready(function() {
 		        $('#sendMessage').button('toggle');
 				$('#includeFile').button('toggle');
 			    $.post(
-                '/'+$('#wallType').attr("wallType")+'_ajax/post',
+                '/library_wall_ajax/wallPost/'+$('#wallType').attr("wallType")+'/'+$('#wallType').attr("childId"),
                 { 
-		            filterCompany: $(".postTextArea").attr("value"),
+		            postText: $(".postTextArea").attr("value"),
 		        },
                 postSent, 
                 "text"
@@ -53,6 +63,7 @@ $(document).ready(function() {
     });
 
 	function postSent(data){
+	alert(data);
     //renderTaskPost();
 	    if($("#storedFiles").html()==''){
 	        $('#sendMessage').button('toggle');

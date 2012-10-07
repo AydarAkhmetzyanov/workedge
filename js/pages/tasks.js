@@ -3,15 +3,16 @@ $(document).ready(function() {
 	$('#filterResponsible').button('toggle');
 	$('#filterMember').button('toggle');
 	if($('.task').attr('iid') != "0"){
-	$.post(
+	    $('.task').attr('id',$('.task').attr('iid'));
+	    $.post(
         "/tasks_ajax/loadTask",
         { 
-		    id: $('.task').attr('iid')
+		    id: $('.task').attr('id')
 		},
         taskLoaded, 
         "text"
-    );}
-	
+        );
+	}
 	loadTable();
 });
 

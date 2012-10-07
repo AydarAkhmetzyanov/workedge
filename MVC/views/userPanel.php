@@ -41,7 +41,7 @@
             </a>
 			<a class="btn <?=$tasksButton?>" data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i></a>
           </div>
-		  <div class="btn-group pull-right">
+		  <div style="display:none;" class="btn-group pull-right">
             <a class="btn <? if($newMessages >0){ echo 'btn-success'; } else { echo ''; }?>" href="/messages">
               <i class="icon-envelope"></i> <?=$newMessages?>
             </a>
