@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$("#storedFiles").append(appendhtml);
 		},
 		onError: function(id, fileName, errorReason) { 
-		    alert('error '+errorReason+fileName); 
+		    alert('onError '+errorReason+' '+fileName); 
 		},
 		onComplete: function(id, fileName, responseJSON) { 
 		    alert('onComplete '+fileName+' '+JSON.stringify(responseJSON));

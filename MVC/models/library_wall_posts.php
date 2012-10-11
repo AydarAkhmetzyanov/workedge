@@ -19,8 +19,8 @@ class Library_wall_posts extends Model {
 	    
 	}
 	
-	public static function addFile($target, $child){
-	    
+	public static function addFile($target, $child, $realName){
+	    return $target . $child . $realName;
 	}
 	
 }

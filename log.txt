@@ -1,0 +1,5 @@
+$file = fopen (ROOT.DS."log.txt","r+");
+$str = 'not null';
+fputs ( $file, $str);
+fclose ($file);
+
