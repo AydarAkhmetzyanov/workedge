@@ -15,6 +15,18 @@ class Library_wall_posts extends Model {
 		return $addId;
 	}
 	
+	public static function filePath($target, $fileId){
+	    
+	}
+	
+	public static function deletePost($target, $postId){
+	    
+	}
+	
+	public static function getPostsJSON($target, $child){
+	    
+	}
+	
 	public static function addFile($target, $child, $fileName){
 	    global $db;
 		$sql='SELECT `id`, `files` FROM `'.$target.'wallposts` WHERE `childId`=:childId AND `userId`=:userId ORDER BY `id` DESC LIMIT 1';
