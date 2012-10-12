@@ -2,6 +2,10 @@
 
 class Library_wall_ajaxController extends Controller {
     
+	public function getFile($target, $fileId){
+	    
+	}
+	
 	public function wallPost($target, $child){
 	    if(isset($_POST['postText']) and ($_POST['postText']!='') and isset($target) and ($target!='') and isset($child) and ($child!='')){
 	        if(User::isAuth()){
@@ -13,7 +17,7 @@ class Library_wall_ajaxController extends Controller {
 		}
 	}
 	
-	public function wallAddFile($target, $child, $fileName='0'){
+    public function wallAddFile($target, $child, $fileName='0'){
 	    if(isset($target) and ($target!='') and isset($child) and ($child!='')){
 	        if(User::isAuth()){
 			    $allowedExtensions = array();
@@ -21,8 +25,9 @@ class Library_wall_ajaxController extends Controller {
 			    $uploader = new Qqfileuploader($allowedExtensions, $sizeLimit, $fileName);
 				$fileId = Library_wall_posts::addFile($target, $child, $uploader->getName());
 				if($fileId!='0'){
-				    if(!(is_dir(ROOT.DS.'temp'.DS.$_SESSION['id'].DS))){ mkdir(ROOT.DS.'temp'.DS.$_SESSION['id'].DS,0777,true); } //continue fix name
-				    $uploader->handleUpload(ROOT.DS.'temp'.DS.$_SESSION['id'].DS.'upload.upload',true,true); //continue fix name
+				    $filesDirectory = ROOT.DS.'data'.DS.'files'.DS.$target.DS.$child;
+				    if(!(is_dir($filesDirectory))){ mkdir($filesDirectory,0777,true); }
+				    $uploader->handleUpload($filesDirectory.DS.$fileId.'.upload',true,true);
 					$result = array('success'=> true, 'result'=> $fileId);
 				} else {
 				    $result = array('error'=> 'Could not save uploaded file. Model error.'.$target. $child. $uploader->getName());

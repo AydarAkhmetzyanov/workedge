@@ -25,7 +25,7 @@ $(document).ready(function() {
 		    alert('onError '+errorReason+' '+fileName); 
 		},
 		onComplete: function(id, fileName, responseJSON) { 
-		    alert('onComplete '+fileName+' '+JSON.stringify(responseJSON));
+		    alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
 			//add file to last post
 			//delete thisId stored file
 			

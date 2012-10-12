@@ -1,0 +1,26 @@
+#!/bin/bash
+BDATE=$(date +%d.%m.%Y)
+function backup{
+
+
+}
+
+mysqldump -hlocalhost -ucreatives_bkids -pkidspsw! creatives_bkids > /home/c/creatives/b-kids.ru/creatives_bkids.sql
+zip -r /home/c/creatives/b-kids.ru_$(date +%d.%m.%Y).zip /home/c/creatives/b-kids.ru
+rm /home/c/creatives/b-kids.ru/creatives_bkids.sql
+scp -P 22 -c blowfish -C /home/c/creatives/b-kids.ru_$(date +%d.%m.%Y).zip backup@dev.creativestripe.ru:/b-kids.ru
+rm /home/c/creatives/b-kids.ru_$(date +%d.%m.%Y).zip
+
+
+mysqldump -hlocalhost -ucreatives_creat -pcreativepsw creatives_creat > /home/c/creatives/DBDump/creatives_creat.sql
+mysqldump -hlocalhost -ucreatives_dec -pdecoltepsw creatives_dec > /home/c/creatives/DBDump/creatives_dec.sql
+mysqldump -hlocalhost -ucreatives_drive -pYqlpRCn6 creatives_drive > /home/c/creatives/DBDump/creatives_drive.sql
+mysqldump -hlocalhost -ucreatives_gifts -pgiftspsw creatives_gifts > /home/c/creatives/DBDump/creatives_gifts.sql
+mysqldump -hlocalhost -ucreatives_megas -p4ywuZ2ol creatives_megas > /home/c/creatives/DBDump/creatives_megas.sql
+mysqldump -hlocalhost -ucreatives_rad -pradpsw creatives_rad > /home/c/creatives/DBDump/creatives_rad.sql
+mysqldump -hlocalhost -ucreatives_vif -pvifpsw creatives_vif > /home/c/creatives/DBDump/creatives_vif.sql
+mysqldump -hlocalhost -ucreatives_zarule -pzarule creatives_zarule > /home/c/creatives/DBDump/creatives_zarule.sql
+
+zip -r /home/c/creatives/backup_$(date +%d.%m.%Y).zip /home/c/creatives
+
+OF=/home/c/creatives/backup_$(date +%d.%m.%Y).zip && zip -r $OF /home/c/creatives
