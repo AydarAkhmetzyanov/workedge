@@ -40,9 +40,9 @@ class Library_wall_ajaxController extends Controller {
 		}
 	}
 	
-	public function getPostsJSON($target, $child){
+	public function getPostsJSON($target, $child, $lastId = 0){
 	    if(User::isAuth()){
-		    echo Library_wall_posts::getPostsJSON($target, $child);
+		    echo Library_wall_posts::getPostsJSON($target, $child, $lastId);
 		}
 	}
 	

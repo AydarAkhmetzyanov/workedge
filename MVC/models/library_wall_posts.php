@@ -17,14 +17,25 @@ class Library_wall_posts extends Model {
 	
 	public static function filePath($target, $fileId){
 	    
+		
 	}
 	
 	public static function deletePost($target, $postId){
 	    
 	}
 	
-	public static function getPostsJSON($target, $child){
-	    
+	public static function getPostsJSON($target, $child, $lastId){
+	    global $db;
+		$sql='SELECT main.`id`, main.`childId`, main.`postTime`, main.`userId`, main.`desc`, main.`files` , user.`firstName` , user.`secondName`
+		FROM `'.$target.'wallposts` main, `users` user 
+		WHERE user.`id`=main.`userId` AND main.`childId`=:childId AND main.`id`<:lastId LIMIT 10';
+		$stmt->execute( array(
+		    'childId' => $child,
+			'userId' => $_SESSION['id'],
+			'desc' => htmlspecialchars($_POST['postText'])
+		));
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		return json_encode($stmt->fetchAll());
 	}
 	
 	public static function addFile($target, $child, $fileName){
