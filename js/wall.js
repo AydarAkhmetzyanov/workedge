@@ -92,18 +92,18 @@ var engine = {
 	}
 };
 
-$(document).ready(function() {
 
-    
-
-    var fileUploader = new qq.FileUploaderBasic({
-        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$('#wallType').attr("childId"),
+var fileUploader;
+function updateWall($childId){
+if(fileUploader==undefined){
+        fileUploader = new qq.FileUploaderBasic({
+        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$childId,
 		autoUpload: false,
 		sizeLimit: 20000000,
 		button: document.getElementById('includeFile'),
 		onSubmit: function(id, fileName) {
 			var appendhtml;
-			appendhtml='<tr fId="'+id+'"><td><i class="icon-file"></i></td><td>';
+			appendhtml='<tr class="attachment" id="'+id+'"><td><i class="icon-file"></i></td><td>';
 			appendhtml+=fileName;
 			appendhtml+='</td></tr>';
 			$("#storedFiles").append(appendhtml);
@@ -114,14 +114,16 @@ $(document).ready(function() {
 		onComplete: function(id, fileName, responseJSON) { 
 		    alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
 			//add file to last post
-			//delete thisId stored file
-			
+			$('.attachment#'+id).remove();
 			if($("#storedFiles").html()==''){
 	            $('#sendMessage').button('toggle');
 		        $('#includeFile').button('toggle');
+				$(".postTextArea").attr("value","");
 	        }
 		}
     });
+	
+	
 	
 	$('#includeFile').click(function() {
 	    uploadCount=0;
@@ -135,7 +137,7 @@ $(document).ready(function() {
 		        $('#sendMessage').button('toggle');
 				$('#includeFile').button('toggle');
 			    $.post(
-                '/library_wall_ajax/wallPost/'+$('#wallType').attr("wallType")+'/'+$('#wallType').attr("childId"),
+                '/library_wall_ajax/wallPost/'+$('#wallType').attr("wallType")+'/'+$childId,
                 { 
 		            postText: $(".postTextArea").attr("value"),
 		        },
@@ -155,10 +157,19 @@ $(document).ready(function() {
 	    if($("#storedFiles").html()==''){
 	        $('#sendMessage').button('toggle');
 		    $('#includeFile').button('toggle');
+			$(".postTextArea").attr("value","");
 	    } else {
             fileUploader.uploadStoredFiles();
 	    }	
     }
 	
-  });
- 
+} else {
+    fileUploader.action='/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$childId;
+	fileUploader.clearStoredFiles();
+	$(".postTextArea").attr("value","");
+	$('#storedFiles').remove();
+	//delete engine posts
+	
+	
+}	
+};

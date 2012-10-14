@@ -13,7 +13,7 @@ class Task extends Model
 			LIMIT 1
 		');
         $stmt->execute( array(
-		    'taskId' => $taskId, 
+		    'taskId' => $taskId,
 		    'userId' => $_SESSION['id']
 		));
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -276,7 +276,7 @@ class Task extends Model
 			$stmtResponsible->setFetchMode(PDO::FETCH_ASSOC);
 			$result['responsible']=$stmtResponsible->fetch();
 			$stmtTask = $db->prepare('
-				SELECT  `name` ,  `description` ,  `status` ,  `link` ,  `linkType` ,  DATE(`timeCreate`) AS `timeCreate` ,  DATE(`timeDeadLine`) AS `timeDeadLine`
+				SELECT  `id`, `name` ,  `description` ,  `status` ,  `link` ,  `linkType` ,  DATE(`timeCreate`) AS `timeCreate` ,  DATE(`timeDeadLine`) AS `timeDeadLine`
 				FROM  `tasks` 
 				WHERE  `id` = :taskId 
 				LIMIT 1

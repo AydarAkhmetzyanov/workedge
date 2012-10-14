@@ -7,13 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
     <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-	<script src="http://malsup.github.com/jquery.form.js"></script>
-	<?= HTML::includeJS("pages/".CONTROLLER);?>
+	<!--<script src="http://malsup.github.com/jquery.form.js"></script>-->
+	
+	<?php 
+	$controllersWithWall = array("tasks", "wall");
+    if (in_array(CONTROLLER, $controllersWithWall)) {
+        echo HTML::includeJS('fileuploader');
+		echo HTML::includeJS('wall');
+    }
+	?>
+	
 	<?= HTML::includeJS('bootstrap.min');?>
 	<?= HTML::includeJS('bootstrap-datepicker');?>
-	<?= HTML::includeJS('fileuploader');?>
     <?= HTML::includeJS('main');?>
 	<?= HTML::includeJS('addTask');?>
+	<?= HTML::includeJS("pages/".CONTROLLER);?>
 	
 	<?= HTML::includeCSS('bootstrap.min');?>
 	<?= HTML::includeCSS('bootstrap-responsive.min');?>

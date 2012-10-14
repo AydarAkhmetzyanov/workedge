@@ -1,5 +1,4 @@
-  <?=HTML::includeJS('wall');?>
-  <div class="control-group" id="wallType" wallType="<?=CONTROLLER?>" childId="93">
+  <div class="control-group" id="wallType" wallType="<?=CONTROLLER?>">
       <img style="margin-top:1px;" class="img-rounded" src="/data/avatar/1/small.jpg">
       <textarea required class="postTextArea info" rows="2"></textarea>
       <div style="margin-top:0px;" class="btn-toolbar">
@@ -13,7 +12,7 @@
               <tbody id="storedFiles"></tbody>
             </table>
 			</div>
-  </div> 
+  </div>
   
 	<div id="wallPosts">
 <blockquote class="pull-right onlineBorder row chatPost">

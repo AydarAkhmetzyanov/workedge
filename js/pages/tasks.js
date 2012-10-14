@@ -243,6 +243,7 @@ function renderTask(task){
 	    $("#taskMembersList").append('<tr><td></td><td><a href="/wall/'+value.userId+'">'+value.firstName+' '+value.secondName+'</a></td></tr>');
     });
 	$('#deleteButton').removeAttr('disabled');
+	updateWall(task.task.id);
 }
 
 function makeComplete(taskId){
