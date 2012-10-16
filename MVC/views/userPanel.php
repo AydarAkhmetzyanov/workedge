@@ -2,7 +2,7 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <img class="panelAvatar img-rounded" src="/data/avatar/<?=$_SESSION['id']?>/small.jpg" />
-		  <a class="brand" href="/wall"><?=$_SESSION['firstName']?> <?=$_SESSION['secondName']?></a>
+		  <a class="brand" id="<?=$_SESSION['id']?>" href="/wall"><?=$_SESSION['firstName']?> <?=$_SESSION['secondName']?></a>
 		  <ul class="nav">
 			
   <?=$menuActions?>

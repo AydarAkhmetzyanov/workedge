@@ -3,33 +3,53 @@ var engine = {
 	posts : [],
 	target : null,
 	busy : false,
-	count : 5,
+	getURL : "target/child",
 
 	render : function(obj){
-		var xhtml = '<div class="post" id=post_'+obj.id+'>';
-		if (obj.title) {
-			xhtml += '<h2>'+obj.title+'</h2>';
+	    var that = this;
+		var xhtml = '';
+		var objIsOnlineSting;
+		var files=false;
+		var filesString="";
+		if(obj.lastOnline < 11){
+		    objIsOnlineSting="online";
+		} else {
+		    objIsOnlineSting="offline";
 		}
-		if (obj.posted_at) {
-			xhtml += '<div class="posted_at">Posted on: '+obj.posted_at+'</div>';
+		if(obj.files!=''){
+		    files=jQuery.parseJSON(obj.files);
+			jQuery.each(files, function(fileId, fileName) {
+                filesString+='<tr><td><i class="icon-file"></i></td><td><a target="_blank" href="/library_wall_ajax/getFile/'+that.getURL+'/'+fileId+'">'+fileName+'</a></td></tr>';
+            });
 		}
-		if (obj.comments_count) {
-			xhtml += '<div class="comments_count">Comments: ' + obj.comments_count + '</div>';
+		if(obj.userId==$('.brand').attr('id')){
+			xhtml+='<blockquote id="'+obj.id+'" class="pull-right '+objIsOnlineSting+'Border row chatPost">';
+			xhtml+='<div class="floatRight">';
+			xhtml+='<div class="floatLeft"><p><a href="/wall/'+obj.userId+'">'+obj.firstName+' '+obj.secondName+'</a></p>';
+			xhtml+='<small><i class="icon-trash pointer deletePost"></i> '+obj.postTime+'</small></div>';
+			xhtml+='<img class="img-rounded chatImgRight floatRight" src="/data/avatar/'+obj.userId+'/small.jpg"></div><div>';
+			xhtml+='<p class="postDesc floatRight">'+obj.desc+'</p>';
+			if(filesString!=""){ xhtml+='<table class="tablePostFiles floatRight table table-condensed table-bordered">'+filesString+'</table>'; }
+			xhtml+='</div></blockquote>';
+		} else {
+		    xhtml+='<blockquote id="'+obj.id+'" class="pull-left '+objIsOnlineSting+'Border row chatPost">';
+			xhtml+='<div class="floatLeft">';
+			xhtml+='<img class="floatLeft img-rounded chatImgLeft" src="/data/avatar/'+obj.userId+'/small.jpg"><div class="floatRight"><p>'+'<a href="/wall/'+obj.userId+'">'+obj.firstName+' '+obj.secondName+'</a>'+'</p>';
+			xhtml+='<small>'+obj.postTime+'</small></div></div><div>';
+			xhtml+='<p class="postDesc floatLeft">'+obj.desc+'</p>';
+			if(filesString!=""){ xhtml+='<table class="tablePostFiles floatLeft table table-condensed table-bordered">'+filesString+'</table>'; }
+			xhtml+='</div></blockquote>';
 		}
-		xhtml += '<div class="content">' + obj.content + '</div>';
-		xhtml += '</div>';
-
 		return xhtml;
 	},
 
-	init : function(posts, target){
-
-		if (!target)
-			return;
-
+	init : function(target, getURL){
+        $('#loadMore').show();
 		this.target = $(target);
-
-		this.append(posts);
+        this.getURL = getURL;
+		$("#wallPosts").html('');
+		
+		this.get();
 
 		var that = this;
 		$(window).scroll(function(){
@@ -39,11 +59,19 @@ var engine = {
 			}
 		});
 	},
+	
+	reInit : function(getURL){
+        $('#loadMore').show();
+		this.getURL = getURL;
+		$("#wallPosts").html('');
+		this.posts=[];
+		this.showLoading(this.busy = false);
+		this.get();
+	},
 
 	append : function(posts){
 		posts = (posts instanceof Array) ? posts : [];
 		this.posts = this.posts.concat(posts);
-
 		for (var i=0, len = posts.length; i<len; i++) {
 			this.target.append(this.render(posts[i]));
 		}
@@ -54,7 +82,6 @@ var engine = {
 	},
 
 	get : function() {
-
 		if (!this.target || this.busy) return;
 
 		if (this.posts && this.posts.length) {
@@ -65,25 +92,26 @@ var engine = {
 
 		this.setBusy(true);
 		var that = this;
-
-		$.getJSON('getposts.php', {count:this.count, last:lastId},
+		var lastPostId=$('.chatPost').last().attr('id');
+		if(lastPostId==undefined){lastPostId='0'};
+		$.getJSON('/library_wall_ajax/getPostsJSON/'+this.getURL+'/'+lastPostId,
 			function(data){
 				if (data.length > 0) {
 					that.append(data);
+					that.setBusy(false);
+				} else {
+				    $('#loadMore').hide();
 				}
-				that.setBusy(false);
 			}
 		);
 	},
 
 	showLoading : function(bState){
-		var loading = $('#loading');
-
 		if (bState) {
-			$(this.target).append(loading);
-			loading.show('slow');
+		    $('#loadMore').button('reset');
+			$('#loadMore').button('loading');
 		} else {
-			$('#loading').hide();
+			$('#loadMore').button('reset');
 		}
 	},
 
@@ -94,10 +122,14 @@ var engine = {
 
 
 var fileUploader;
-function updateWall($childId){
+var gchildId;
+function updateWall(childId){
+gchildId=childId;
 if(fileUploader==undefined){
+        engine.init($("#wallPosts"),$('#wallType').attr("wallType")+'/'+childId);
+	
         fileUploader = new qq.FileUploaderBasic({
-        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$childId,
+        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+childId,
 		autoUpload: false,
 		sizeLimit: 20000000,
 		button: document.getElementById('includeFile'),
@@ -112,7 +144,7 @@ if(fileUploader==undefined){
 		    alert('onError '+errorReason+' '+fileName); 
 		},
 		onComplete: function(id, fileName, responseJSON) { 
-		    alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
+		    //alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
 			//add file to last post
 			$('.attachment#'+id).remove();
 			if($("#storedFiles").html()==''){
@@ -137,7 +169,7 @@ if(fileUploader==undefined){
 		        $('#sendMessage').button('toggle');
 				$('#includeFile').button('toggle');
 			    $.post(
-                '/library_wall_ajax/wallPost/'+$('#wallType').attr("wallType")+'/'+$childId,
+                '/library_wall_ajax/wallPost/'+$('#wallType').attr("wallType")+'/'+gchildId,
                 { 
 		            postText: $(".postTextArea").attr("value"),
 		        },
@@ -152,7 +184,7 @@ if(fileUploader==undefined){
     });
 
 	function postSent(data){
-	alert(data);
+	//alert(data);//lastID returns
     //renderTaskPost();
 	    if($("#storedFiles").html()==''){
 	        $('#sendMessage').button('toggle');
@@ -164,12 +196,13 @@ if(fileUploader==undefined){
     }
 	
 } else {
-    fileUploader.action='/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+$childId;
+    engine.reInit($('#wallType').attr("wallType")+'/'+childId);
+    fileUploader.action='/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+childId;
 	fileUploader.clearStoredFiles();
 	$(".postTextArea").attr("value","");
-	$('#storedFiles').remove();
+	$('#storedFiles').html('');
 	//delete engine posts
 	
 	
-}	
+}
 };

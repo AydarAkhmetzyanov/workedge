@@ -10,6 +10,10 @@ h2 + .row {
   margin-top: 5px;
 }
 	  
+.tablePostFiles{
+margin-bottom:0px;
+}	  
+	  
 	  footer{
 	    padding-top: 40px;
 	  }
@@ -76,6 +80,7 @@ h2 + .row {
 	}
 	
 	blockquote.pull-right {
+	float:none;
 	border-right: 5px solid #BEE5FF;
 	}
 	
@@ -88,11 +93,13 @@ h2 + .row {
 	}
 	
 	blockquote.pull-left {
+	float:none;
 	border-left: 5px solid #BEE5FF;
 	}
 	
 	.chatPost {
 	   margin-left: 0px;
+	   
 	}
 	
 	.chatImgRight {

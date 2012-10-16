@@ -2,7 +2,7 @@
 
 class Library_wall_ajaxController extends Controller {
     
-	public function getFile($target, $fileId){
+	public function getFile($target, $child, $fileId){
 	    if(User::isAuth()){
 	        $file=Library_wall_posts::filePath($target, $fileId);
 	        if (file_exists($file)) {
