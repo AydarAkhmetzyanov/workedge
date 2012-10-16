@@ -126,10 +126,10 @@ var gchildId;
 function updateWall(childId){
 gchildId=childId;
 if(fileUploader==undefined){
-        engine.init($("#wallPosts"),$('#wallType').attr("wallType")+'/'+childId);
+        engine.init($("#wallPosts"),$('#wallType').attr("wallType")+'/'+gchildId);
 	
         fileUploader = new qq.FileUploaderBasic({
-        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+childId,
+        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+gchildId,
 		autoUpload: false,
 		sizeLimit: 20000000,
 		button: document.getElementById('includeFile'),
@@ -197,12 +197,36 @@ if(fileUploader==undefined){
 	
 } else {
     engine.reInit($('#wallType').attr("wallType")+'/'+childId);
-    fileUploader.action='/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+childId;
 	fileUploader.clearStoredFiles();
+	fileUploader = new qq.FileUploaderBasic({
+        action: '/library_wall_ajax/wallAddFile/'+$('#wallType').attr("wallType")+'/'+gchildId,
+		autoUpload: false,
+		sizeLimit: 20000000,
+		button: document.getElementById('includeFile'),
+		onSubmit: function(id, fileName) {
+			var appendhtml;
+			appendhtml='<tr class="attachment" id="'+id+'"><td><i class="icon-file"></i></td><td>';
+			appendhtml+=fileName;
+			appendhtml+='</td></tr>';
+			$("#storedFiles").append(appendhtml);
+		},
+		onError: function(id, fileName, errorReason) { 
+		    alert('onError '+errorReason+' '+fileName); 
+		},
+		onComplete: function(id, fileName, responseJSON) { 
+		    //alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
+			//add file to last post
+			
+			$('.attachment#'+id).remove();
+			if($("#storedFiles").html()==''){
+	            $('#sendMessage').button('toggle');
+		        $('#includeFile').button('toggle');
+				$(".postTextArea").attr("value","");
+	        }
+		}
+    });
+	
 	$(".postTextArea").attr("value","");
 	$('#storedFiles').html('');
-	//delete engine posts
-	
-	
 }
 };
