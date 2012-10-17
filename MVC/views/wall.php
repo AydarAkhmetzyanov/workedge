@@ -1,6 +1,6 @@
   <div class="control-group" id="wallType" wallType="<?=CONTROLLER?>">
       <img style="margin-top:1px;" class="img-rounded" src="/data/avatar/1/small.jpg">
-      <textarea required class="postTextArea info" rows="2"></textarea>
+      <textarea required class="postTextArea info" rows="2" onkeypress="if(event.keyCode==10||(event.ctrlKey && event.keyCode==13))$('#sendMessage').click();"></textarea>
       <div style="margin-top:0px;" class="btn-toolbar">
               <div class="btn-group">
                 <a class="btn btn-primary" id="sendMessage" href="#">Отправить</a>

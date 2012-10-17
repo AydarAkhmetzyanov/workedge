@@ -29,7 +29,7 @@ var engine = {
 			xhtml+='<small><i class="icon-trash pointer deletePost"></i> '+obj.postTime+'</small></div>';
 			xhtml+='<img class="img-rounded chatImgRight floatRight" src="/data/avatar/'+obj.userId+'/small.jpg"></div><div>';
 			xhtml+='<p class="postDesc floatRight">'+obj.desc+'</p>';
-			if(filesString!=""){ xhtml+='<table class="tablePostFiles floatRight table table-condensed table-bordered">'+filesString+'</table>'; }
+			xhtml+='<div class="filesTable">'; if(filesString!=""){ xhtml+='<table class="tablePostFiles floatRight table table-condensed table-bordered">'+filesString+'</table>'; } xhtml+='</div>';
 			xhtml+='</div></blockquote>';
 		} else {
 		    xhtml+='<blockquote id="'+obj.id+'" class="pull-left '+objIsOnlineSting+'Border row chatPost">';
@@ -37,12 +37,19 @@ var engine = {
 			xhtml+='<img class="floatLeft img-rounded chatImgLeft" src="/data/avatar/'+obj.userId+'/small.jpg"><div class="floatRight"><p>'+'<a href="/wall/'+obj.userId+'">'+obj.firstName+' '+obj.secondName+'</a>'+'</p>';
 			xhtml+='<small>'+obj.postTime+'</small></div></div><div>';
 			xhtml+='<p class="postDesc floatLeft">'+obj.desc+'</p>';
-			if(filesString!=""){ xhtml+='<table class="tablePostFiles floatLeft table table-condensed table-bordered">'+filesString+'</table>'; }
+			xhtml+='<div class="filesTable">'; if(filesString!=""){ xhtml+='<table class="tablePostFiles floatLeft table table-condensed table-bordered">'+filesString+'</table>'; } xhtml+='</div>';
 			xhtml+='</div></blockquote>';
 		}
 		return xhtml;
 	},
-
+    
+	addFileToNewPost : function(fileName, fileId){
+	    if($('.filesTable').first().html()==''){
+            $('.filesTable').first().append('<table class="tablePostFiles floatRight table table-condensed table-bordered"></table>');
+		}
+		$('.tablePostFiles').first().append('<tr><td><i class="icon-file"></i></td><td><a target="_blank" href="/library_wall_ajax/getFile/'+engine.getURL+'/'+fileId+'">'+fileName+'</a></td></tr>');
+	},
+	
 	init : function(target, getURL){
         $('#loadMore').show();
 		this.target = $(target);
@@ -143,9 +150,8 @@ if(fileUploader==undefined){
 		onError: function(id, fileName, errorReason) { 
 		    alert('onError '+errorReason+' '+fileName); 
 		},
-		onComplete: function(id, fileName, responseJSON) { 
-		    //alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
-			//add file to last post
+		onComplete: function(id, fileName, responseJSON) {
+			engine.addFileToNewPost(fileName,responseJSON.result);
 			$('.attachment#'+id).remove();
 			if($("#storedFiles").html()==''){
 	            $('#sendMessage').button('toggle');
@@ -184,8 +190,17 @@ if(fileUploader==undefined){
     });
 
 	function postSent(data){
-	//alert(data);//lastID returns
-    //renderTaskPost();
+	var newPostObject={
+	    id : data,
+		lastOnline : 0,
+		files : "",
+		userId : $('.brand').attr('id'),
+		firstName: $('.brand').html(),
+		secondName: "",
+		postTime : "Сейчас",
+		desc: $(".postTextArea").attr("value")
+	};
+    engine.target.prepend(engine.render(newPostObject));
 	    if($("#storedFiles").html()==''){
 	        $('#sendMessage').button('toggle');
 		    $('#includeFile').button('toggle');
@@ -214,9 +229,7 @@ if(fileUploader==undefined){
 		    alert('onError '+errorReason+' '+fileName); 
 		},
 		onComplete: function(id, fileName, responseJSON) { 
-		    //alert('onComplete '+id+fileName+' '+JSON.stringify(responseJSON));
-			//add file to last post
-			
+		    engine.addFileToNewPost(fileName,responseJSON.result);
 			$('.attachment#'+id).remove();
 			if($("#storedFiles").html()==''){
 	            $('#sendMessage').button('toggle');
