@@ -15,6 +15,7 @@ $(document).ready(function() {
 	
 	
 	loadCoWorkers();
+	updateWall($('#wallHeader').attr('wallid'));
 });
 
 function taskFromWall(){

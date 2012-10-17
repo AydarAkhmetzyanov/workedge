@@ -91,7 +91,7 @@
     <div class="tab-pane active" id="tabWall">
 	<?php
   Wall::render();
-  ?> 
+  ?>
     </div>
 	<div class="tab-pane" id="tabProfile">
       <p>tabProfile</p>
