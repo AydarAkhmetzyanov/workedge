@@ -44,11 +44,7 @@ var engine = {
 	},
 	
 	deletePost : function(element){
-	    $.get('/library_wall_ajax/deletePost/'+this.getURL+'/'+$(element).parent().parent().parent().parent().attr('id'),
-			function(data){
-				alert(data);
-			}
-		);
+	    $.get('/library_wall_ajax/deletePost/'+this.getURL+'/'+$(element).parent().parent().parent().parent().attr('id'));
 		$(element).parent().parent().parent().parent().remove();
 	},
     
