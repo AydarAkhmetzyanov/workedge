@@ -14,5 +14,5 @@
 			</div>
   </div>
   
-	<div id="wallPosts"></div>
+	<div id="wallPosts" style="display:none;"></div>
 	<div><button id="loadMore" class="btn btn-large btn-block" data-loading-text="Загрузка..." type="button">Загрузить еще</button></div>

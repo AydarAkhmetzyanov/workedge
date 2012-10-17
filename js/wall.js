@@ -91,7 +91,7 @@ var engine = {
 		for (var i=0, len = posts.length; i<len; i++) {
 			this.target.append(this.render(posts[i]));
 		}
-
+        $('#wallPosts').show("slow");
 		if (this.scrollPosition !== undefined && this.scrollPosition !== null) {
 			$(window).scrollTop(this.scrollPosition);
 		}
