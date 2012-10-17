@@ -4,14 +4,16 @@ class Library_wall_ajaxController extends Controller {
     
 	public function getFile($target, $child, $fileId){
 	    if(User::isAuth()){
-	        $file=Library_wall_posts::filePath($target, $fileId);
+	        $fileName=Library_wall_posts::fileName($target, $child, $fileId);
+			$filesDirectory = ROOT.DS.'data'.DS.'files'.DS.$target.DS.$child;
+			$file=$filesDirectory.DS.$fileId.'.upload';
 	        if (file_exists($file)) {
                 if (ob_get_level()) {
                     ob_end_clean();
                 }
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename=' . basename($file));
+                header('Content-Disposition: attachment; filename=' . $fileName);
                 header('Content-Transfer-Encoding: binary');
                 header('Expires: 0');
                 header('Cache-Control: must-revalidate');
@@ -34,9 +36,9 @@ class Library_wall_ajaxController extends Controller {
 		}
 	}
 	
-	public function deletePost($target, $postId){
+	public function deletePost($target, $child, $postId){
 	    if(User::isAuth()){
-		    echo Library_wall_posts::deletePost($target, $postId);
+		    echo Library_wall_posts::deletePost($target, $child, $postId);
 		}
 	}
 	

@@ -26,7 +26,7 @@ var engine = {
 			xhtml+='<blockquote id="'+obj.id+'" class="pull-right '+objIsOnlineSting+'Border row chatPost">';
 			xhtml+='<div class="floatRight">';
 			xhtml+='<div class="floatLeft"><p><a href="/wall/'+obj.userId+'">'+obj.firstName+' '+obj.secondName+'</a></p>';
-			xhtml+='<small><i class="icon-trash pointer deletePost"></i> '+obj.postTime+'</small></div>';
+			xhtml+='<small><i onclick="engine.deletePost(this)" class="icon-trash pointer"></i> '+obj.postTime+'</small></div>';
 			xhtml+='<img class="img-rounded chatImgRight floatRight" src="/data/avatar/'+obj.userId+'/small.jpg"></div><div>';
 			xhtml+='<p class="postDesc floatRight">'+obj.desc+'</p>';
 			xhtml+='<div class="filesTable">'; if(filesString!=""){ xhtml+='<table class="tablePostFiles floatRight table table-condensed table-bordered">'+filesString+'</table>'; } xhtml+='</div>';
@@ -41,6 +41,15 @@ var engine = {
 			xhtml+='</div></blockquote>';
 		}
 		return xhtml;
+	},
+	
+	deletePost : function(element){
+	    $.get('/library_wall_ajax/deletePost/'+this.getURL+'/'+$(element).parent().parent().parent().parent().attr('id'),
+			function(data){
+				alert(data);
+			}
+		);
+		$(element).parent().parent().parent().parent().remove();
 	},
     
 	addFileToNewPost : function(fileName, fileId){

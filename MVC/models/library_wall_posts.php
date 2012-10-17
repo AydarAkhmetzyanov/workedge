@@ -15,13 +15,48 @@ class Library_wall_posts extends Model {
 		return $addId;
 	}
 	
-	public static function filePath($target, $fileId){
-	    
-		
+	public static function fileName($target, $child, $fileId){
+	    global $db;
+		$sql='SELECT `name` FROM `'.$target.'wallfiles` WHERE `id`=:fileId';
+		$stmt = $db->prepare($sql);
+		$stmt->execute( array(
+		    'fileId' => $fileId 
+		));
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $table=$stmt->fetch();
+		return $table['name'];
 	}
 	
-	public static function deletePost($target, $postId){
-	    
+	public static function deletePost($target, $child, $postId){
+		global $db;
+		$sql='SELECT `id`,`files` FROM `'.$target.'wallposts` WHERE `userId`=:userId and `id`=:id';
+		$stmt = $db->prepare($sql);
+		$stmt->execute( array(
+		    'userId' => $_SESSION['id'],
+			'id' => $postId 
+		));
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $table=$stmt->fetch();
+		if($table['files']!=''){
+		    $sqlDeleteFile='DELETE FROM `'.$target.'wallfiles` WHERE `userId`=:userId and `id`=:id';
+			$stmt = $db->prepare($sqlDeleteFile);
+		    $files = json_decode($table['files']);
+			foreach ($files as $key => $value){
+			    echo $key.' '.$value;
+				$stmt->execute( array(
+		            'userId' => $_SESSION['id'],
+			        'id' => $key 
+		        ));
+			    unlink(ROOT.DS.'data'.DS.'files'.DS.$target.DS.$child.DS.$key.'.upload');
+			}
+		}
+		$sql='DELETE FROM `'.$target.'wallposts` WHERE `userId`=:userId and `id`=:id';
+		$stmt = $db->prepare($sql);
+		$stmt->execute( array(
+		    'userId' => $_SESSION['id'],
+			'id' => $postId 
+		));
+			
 	}
 	
 	public static function getPostsJSON($target, $child, $lastId = 0){
@@ -35,7 +70,7 @@ class Library_wall_posts extends Model {
 		    'childId' => $child
 		    ));
 		} else {
-            $sql='SELECT main.`id`, main.`childId`, main.`postTime`, main.`userId`, main.`desc`, main.`files` , user.`firstName` , user.`secondName`
+            $sql='SELECT main.`id`, main.`childId`, main.`postTime`, main.`userId`, main.`desc`, main.`files` , user.`firstName` , user.`secondName`, TIMESTAMPDIFF( MINUTE ,user.`lastAccessTime`,NOW()) AS `lastOnline` 
 		    FROM `'.$target.'wallposts` main, `users` user 
 		    WHERE user.`id`=main.`userId` AND main.`childId`=:childId AND main.`id`<:lastId ORDER BY main.`id` DESC LIMIT 10';
 			$stmt = $db->prepare($sql);
