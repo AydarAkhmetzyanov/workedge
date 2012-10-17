@@ -199,24 +199,25 @@ if(fileUploader==undefined){
     });
 
 	function postSent(data){
-	var newPostObject={
-	    id : data,
-		lastOnline : 0,
-		files : "",
-		userId : $('.brand').attr('id'),
-		firstName: $('.brand').html(),
-		secondName: "",
-		postTime : "Сейчас",
-		desc: $(".postTextArea").attr("value")
-	};
-    engine.target.prepend(engine.render(newPostObject));
+	    var newPostObject={
+	        id : data,
+		    lastOnline : 0,
+		    files : "",
+		    userId : $('.brand').attr('id'),
+		    firstName: $('.brand').html(),
+		    secondName: "",
+		    postTime : "Сейчас",
+		    desc: $(".postTextArea").attr("value")
+	    };
+        engine.target.prepend(engine.render(newPostObject));
 	    if($("#storedFiles").html()==''){
 	        $('#sendMessage').button('toggle');
 		    $('#includeFile').button('toggle');
 			$(".postTextArea").attr("value","");
 	    } else {
             fileUploader.uploadStoredFiles();
-	    }	
+	    }
+		$('#wallPosts').show("slow");
     }
 	
 } else {
