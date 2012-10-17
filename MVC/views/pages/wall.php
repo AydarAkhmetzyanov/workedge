@@ -3,7 +3,7 @@
 <div class="span12">
           <div class="row">
 		  <div class="span3"><br />
-		      <img src="/data/avatar/<?=$initWall?>/big.jpg<?php if((isset($uploadError))and($uploadError==0)){ echo '?'.rand(1,100);}?>" class="img-rounded <?php if($initWall==$_SESSION['id']) echo 'pointer';?>" onclick="$('#avatarForm').show('slow');"><br /><br />
+		      <img src="/data/avatar/<?=$initWall?>/big.jpg" class="img-rounded <?php if($initWall==$_SESSION['id']) echo 'pointer';?>" onclick="$('#avatarForm').show('slow');"><br /><br />
 			  <?php
 			  if((isset($uploadError))and($uploadError!=0)){
 			  echo $uploadError;
