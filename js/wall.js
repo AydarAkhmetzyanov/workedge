@@ -109,6 +109,9 @@ var engine = {
 		$.getJSON('/library_wall_ajax/getPostsJSON/'+this.getURL+'/'+lastPostId,
 			function(data){
 				if (data.length > 0) {
+				    if(data.length < 10){ 
+					    $('#loadMore').hide();
+					}
 					that.append(data);
 					that.setBusy(false);
 				} else {
