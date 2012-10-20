@@ -94,10 +94,51 @@
   ?>
     </div>
 	<div class="tab-pane" id="tabProfile">
-      <p>tabProfile</p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputPhone">Контактный телефон</label>
+    <div class="controls">
+      <input type="text" id="inputPhone" placeholder="Телефон" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Контактный телефон</label>
+    <div class="controls">
+      <input type="text" id="inputEmail" placeholder="Телефон" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Сохранить изменения</button>
+    </div>
+  </div>
+</form>
+      <p>Телефон</p>
+	  
+	  <p>сфера работы</p>
+	  <p>образование</p>
+	  <p>О себе</p>
+	  Сохранить изменения
     </div>
 	<div class="tab-pane" id="tabSettings">
-      <p>tabSettings</p>
+	<p>выбор города</p>
+      <p>Валидация/смена почты</p>
+	  <p>смена пароля</p> 
     </div>
   </div>
 		  </div>
