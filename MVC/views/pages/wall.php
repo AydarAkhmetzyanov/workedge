@@ -110,6 +110,7 @@
 	
 	
 	<form class="form-horizontal">
+	<legend>Персональная информация</legend>
   <div class="control-group">
     <label class="control-label" for="inputPhone">Контактный телефон</label>
     <div class="controls">
@@ -117,9 +118,21 @@
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="inputEmail">Контактный телефон</label>
+    <label class="control-label" for="inputWork">Сфера деятельности</label>
     <div class="controls">
-      <input type="text" id="inputEmail" placeholder="Телефон" value="">
+      <textarea rows="2" id="inputWork" placeholder="Прогрммирование, страхование, дизайн..."></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEdu">Образование</label>
+    <div class="controls">
+      <textarea rows="2" id="inputEdu" placeholder="Научная степень, знание языков..."></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputAbout">О себе</label>
+    <div class="controls">
+      <textarea rows="2" id="inputAbout" placeholder="Люблю хорошие фильмы, спорт, горные лыжи..."></textarea>
     </div>
   </div>
   <div class="control-group">
@@ -128,17 +141,71 @@
     </div>
   </div>
 </form>
-      <p>Телефон</p>
-	  
-	  <p>сфера работы</p>
-	  <p>образование</p>
-	  <p>О себе</p>
-	  Сохранить изменения
     </div>
 	<div class="tab-pane" id="tabSettings">
-	<p>выбор города</p>
-      <p>Валидация/смена почты</p>
-	  <p>смена пароля</p> 
+	
+	<form class="form-horizontal">
+	<legend>Ваше расположение</legend>
+  <div class="control-group">
+    <label class="control-label" for="inputCountry">Выберите страну</label>
+    <div class="controls">
+      <input type="text" id="inputCountry" placeholder="Россия" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputRegion">Выберите регион</label>
+    <div class="controls">
+      <input type="text" id="inputRegion" placeholder="" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputCity">Выберите город</label>
+    <div class="controls">
+      <input type="text" id="inputCity" placeholder="" value="">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Сохранить изменения</button>
+    </div>
+  </div>
+</form>
+
+	<form class="form-horizontal">
+	<legend>Смена почты</legend>
+  <div class="control-group warning">
+    <label class="control-label" for="inputEmail">Адрес почты</label>
+    <div class="controls">
+      <input type="email" id="inputEmail" placeholder="имя@домен" value="aydar@creativestripe.ru">
+	  <span class="help-inline">Почта не проверена</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-danger">Изменить почту</button>
+	  <button type="submit" class="btn">Повторно отправить письмо проверки</button>
+    </div>
+  </div>
+</form>
+	
+	<form class="form-horizontal">
+	<legend>Смена пароля</legend>
+  <div class="control-group error">
+    <label class="control-label" for="inputPassword">Пароль</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" placeholder="" value="oldPassword">
+    </div>
+	<div class="controls">
+     <span class="help-inline">Пароль слишком простой</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-danger">Изменить пароль</button>
+    </div>
+  </div>
+</form>
+	
     </div>
   </div>
 		  </div>
