@@ -93,46 +93,34 @@
   Wall::render();
   ?>
     </div>
+		<?php
+	if($user['id']==$_SESSION['id']){ ?>
 	<div class="tab-pane" id="tabProfile">
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<form class="form-horizontal">
+	<form method="POST" class="form-horizontal">
 	<legend>Персональная информация</legend>
   <div class="control-group">
     <label class="control-label" for="inputPhone">Контактный телефон</label>
     <div class="controls">
-      <input type="text" id="inputPhone" placeholder="Телефон" value="">
+      <input type="text" name="inputPhone" id="inputPhone" placeholder="Телефон" value="<?=$user['phoneM']?>">
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputWork">Сфера деятельности</label>
     <div class="controls">
-      <textarea rows="2" id="inputWork" placeholder="Прогрммирование, страхование, дизайн..."></textarea>
+      <textarea rows="2" name="inputWork" id="inputWork" placeholder="Прогрммирование, страхование, дизайн..."><?=$user['work']?></textarea>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputEdu">Образование</label>
     <div class="controls">
-      <textarea rows="2" id="inputEdu" placeholder="Научная степень, знание языков..."></textarea>
+      <textarea rows="2" name="inputEdu" id="inputEdu" placeholder="Научная степень, знание языков..."><?=$user['education']?></textarea>
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputAbout">О себе</label>
     <div class="controls">
-      <textarea rows="2" id="inputAbout" placeholder="Люблю хорошие фильмы, спорт, горные лыжи..."></textarea>
+      <textarea rows="2" name="inputAbout" id="inputAbout" placeholder="Люблю хорошие фильмы, спорт, горные лыжи..."><?=$user['about']?></textarea>
     </div>
   </div>
   <div class="control-group">
@@ -190,13 +178,25 @@
 	
 	<form class="form-horizontal">
 	<legend>Смена пароля</legend>
-  <div class="control-group error">
-    <label class="control-label" for="inputPassword">Пароль</label>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Старый пароль</label>
     <div class="controls">
       <input type="password" id="inputPassword" placeholder="" value="oldPassword">
+	  <span class="help-inline"></span>
     </div>
-	<div class="controls">
-     <span class="help-inline">Пароль слишком простой</span>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Новый пароль</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" placeholder="" value="">
+	  <span class="help-inline"></span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Повторите ввод</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" placeholder="" value="">
+	  <span class="help-inline"></span>
     </div>
   </div>
   <div class="control-group">
@@ -207,6 +207,7 @@
 </form>
 	
     </div>
+	<?php } ?>
   </div>
 		  </div>
 		  

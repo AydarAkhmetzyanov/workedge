@@ -113,6 +113,50 @@ class User extends Model
 		return $user;
 	}
 	
+	public static function updatePersonalSettings(){
+	    global $db;
+		$stmt = $db->prepare("
+				UPDATE `users` 
+				SET `phoneM`=:inputPhone,`education`=:inputEdu,`about`=:inputAbout,`work`=:inputWork 
+				WHERE `id`=:id
+				");
+		$stmt->execute( array(
+		    'id' => $_SESSION['id'],
+		    'inputPhone' => htmlspecialchars($_POST['inputPhone']),
+			'inputWork' => htmlspecialchars($_POST['inputWork']),
+			'inputEdu' => htmlspecialchars($_POST['inputEdu']),
+			'inputAbout' => htmlspecialchars($_POST['inputAbout'])
+		) );
+	}
+	
+	public static function updateAvatar(){
+	    $result='';
+	    if( (isset($_FILES["avatar"]["tmp_name"])) and (is_uploaded_file($_FILES["avatar"]["tmp_name"])) ){
+				    if($_FILES["avatar"]["size"] > 1024*5*1024){
+					    $result = 'Файл должен быть меньше 5 мегабайт';
+					} else {
+					    list($txt, $ext) = explode(".", $_FILES['avatar']['name']);
+						$valid_formats = array('jpg', 'png', 'gif', 'jpeg');
+						if(!in_array($ext,$valid_formats)){
+						    $result = 'Фотография должна быть в формате jpg,png,jpeg или gif';
+						} else {
+						    $imageinfo = getimagesize ( $_FILES['avatar']['tmp_name'] );
+							if($imageinfo["mime"] != "image/gif" && $imageinfo["mime"] != "image/jpeg" && $imageinfo["mime"] != "image/png") {
+							    $result = 'Фотография должна быть в формате jpg,png или gif';
+							} else {
+							    $img = new AcResizeImage($_FILES['avatar']['tmp_name']);
+                                $big = $img->cropSquare()->resize(250, 250)->save(ROOT.DS.'data'.DS.'avatar'.DS.$_SESSION['id'].DS, 'big', 'jpg', true, 100);
+								$img = new AcResizeImage($_FILES['avatar']['tmp_name']);
+                                $big = $img->cropSquare()->resize(48, 48)->save(ROOT.DS.'data'.DS.'avatar'.DS.$_SESSION['id'].DS, 'small', 'jpg', true, 100);
+								$result = 0;
+								echo '<script language="javascript">window.location.reload(true);</script>';
+							}
+						}
+					}
+				}
+		return $result;		
+	}
+	
 	public static function updateOnlineStatus(){
 	    global $db;
 		$stmt = $db->prepare("
