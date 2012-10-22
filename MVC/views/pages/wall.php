@@ -22,9 +22,6 @@
   <?php if($user['phoneM']!='') echo "<dt>Телефон</dt><dd>".$user['phoneM']."</dd>";?>
   <dt>E-mail</dt><dd><?=$user['email']?></dd>
   <br />
-  <dt>Страна</dt><dd><?=$user['country']?></dd>
-  <dt>Город</dt><dd><?=$user['city']?></dd>
-  <br />
   <?php if($user['work']!='') echo '<dt>Сфера работы</dt><dd>'.$user['work'].'</dd>';?>
   <?php if($user['education']!='') echo '<dt>Образование</dt><dd>'.$user['education'].'</dd>';?>
   <?php if($user['about']!='') echo '<dt>О себе</dt><dd>'.$user['about'].'</dd>';?>
@@ -131,60 +128,42 @@
 </form>
     </div>
 	<div class="tab-pane" id="tabSettings">
-	
-	<form class="form-horizontal">
-	<legend>Ваше расположение</legend>
+
+	<form id="passCheckForm" class="form-horizontal">
+	<legend>Для доступа введите ваш пароль</legend>
   <div class="control-group">
-    <label class="control-label" for="inputCountry">Выберите страну</label>
+    <label class="control-label" for="inputPassword">Пароль</label>
     <div class="controls">
-      <input type="text" id="inputCountry" placeholder="Россия" value="">
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="inputRegion">Выберите регион</label>
-    <div class="controls">
-      <input type="text" id="inputRegion" placeholder="" value="">
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="inputCity">Выберите город</label>
-    <div class="controls">
-      <input type="text" id="inputCity" placeholder="" value="">
-    </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn">Сохранить изменения</button>
+	  <input type="hidden" id="olddmd5" value="<?=md5($user['md5'])?>">
+	  <input type="hidden" id="oldsalt" value="<?=$user['salt']?>">
+      <input type="password" onkeyup="checkPass()" id="checkdmd5" placeholder="" value="">
+	  <span id="passCheckHelp" style="display:none;" class="help-inline">Пароль не верен</span>
     </div>
   </div>
 </form>
 
-	<form class="form-horizontal">
+	<div id="pSettingsForms" style="display:none;">
+	<form method="POST" onSubmit="return emailFormCheck()" class="form-horizontal">
 	<legend>Смена почты</legend>
-  <div class="control-group warning">
+  <div class="control-group <?php if($user['emailStatus']=='0') echo 'warning';?>">
     <label class="control-label" for="inputEmail">Адрес почты</label>
     <div class="controls">
-      <input type="email" id="inputEmail" placeholder="имя@домен" value="aydar@creativestripe.ru">
-	  <span class="help-inline">Почта не проверена</span>
+	  <input type="hidden" id="oldEmail" value="<?=$user['email']?>">
+	  <input type="hidden" id="passInputEmail" value="">
+      <input type="email" id="inputEmail" placeholder="имя@домен" value="<?=$user['email']?>">
+	  <span class="help-inline"><?php if($user['emailStatus']=='0') echo 'Почта не проверена';?></span>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-danger">Изменить почту</button>
-	  <button type="submit" class="btn">Повторно отправить письмо проверки</button>
+	  <?php if($user['emailStatus']=='0') echo '<button type="submit" class="btn">Повторно отправить письмо проверки</button>';?>
     </div>
   </div>
 </form>
 	
 	<form class="form-horizontal">
 	<legend>Смена пароля</legend>
-  <div class="control-group">
-    <label class="control-label" for="inputPassword">Старый пароль</label>
-    <div class="controls">
-      <input type="password" id="inputPassword" placeholder="" value="oldPassword">
-	  <span class="help-inline"></span>
-    </div>
-  </div>
   <div class="control-group">
     <label class="control-label" for="inputPassword">Новый пароль</label>
     <div class="controls">
@@ -205,7 +184,7 @@
     </div>
   </div>
 </form>
-	
+	</div>
     </div>
 	<?php } ?>
   </div>

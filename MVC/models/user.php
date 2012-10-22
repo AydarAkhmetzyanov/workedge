@@ -102,10 +102,10 @@ class User extends Model
 	public static function getUserForWall($uid){
 	    global $db;
 		$stmt = $db->prepare("
-				SELECT `users`.`id`, `users`.`email`, `users`.`firstName`, `users`.`secondName`, `users`.`phoneM`, `users`.`emailStatus`, TIMESTAMPDIFF( MINUTE ,`users`.`lastAccessTime`,NOW()) AS `lastOnline` , `city`.`name` AS `city`, `users`.`education`, `users`.`about`, `users`.`work`,`country`.`name` AS `country`
-				FROM `users` 
-				JOIN `city`, `country`
-				WHERE `users`.`id`= :uid and `users`.`city`=`city`.`city_id` and `city`.`country_id` = `country`.`country_id`
+				SELECT `users`.`id`, `users`.`email`, `users`.`firstName`, `users`.`secondName`, `users`.`phoneM`, `users`.`emailStatus`, 
+				TIMESTAMPDIFF( MINUTE ,`users`.`lastAccessTime`,NOW()) AS `lastOnline` , `users`.`education`, `users`.`about`, `users`.`work`, `users`.`emailStatus`, `users`.`md5`, `users`.`salt`
+				FROM `users`
+				WHERE `users`.`id`= :uid 
 				");
 		$stmt->execute( array('uid' => $uid) );
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);

@@ -66,3 +66,30 @@ function renderCoWorkers(coWorkers){
 	
 }
 
+var passInput='';
+function checkPass(){
+    $('#passCheckHelp').show('slow');
+	var oldhash=$('#olddmd5').attr('value');
+	var newhash=md5(md5(md5($('#checkdmd5').attr('value'))+$('#oldsalt').attr('value')));
+	if(oldhash==newhash){
+	    passInput=$('#checkdmd5').attr('value');
+		$('#passInputEmail').attr('value',$('#checkdmd5').attr('value'))
+		$('#passCheckForm').hide();
+		$('#pSettingsForms').show('slow');
+	}
+}
+
+function emailFormCheck(){
+    if($('#inputEmail').attr('value')==$('#oldEmail').attr('value')){
+	    alert('Email должен отличатся от предыдущего');
+		return false;
+	} else {
+	    if(validateEmail($('#inputEmail').attr('value'))){
+		    alert('На новую почту отправлено письмо с подтверждением');
+		    return true;
+		} else {
+		    alert('Неверный формат email');
+		    return false;
+		}
+	}
+}
