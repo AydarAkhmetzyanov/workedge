@@ -143,6 +143,7 @@
 </form>
 
 	<div id="pSettingsForms" style="display:none;">
+	
 	<form method="POST" onSubmit="return emailFormCheck()" class="form-horizontal">
 	<legend>Смена почты</legend>
   <div class="control-group <?php if($user['emailStatus']=='0') echo 'warning';?>">
@@ -150,7 +151,7 @@
     <div class="controls">
 	  <input type="hidden" id="oldEmail" value="<?=$user['email']?>">
 	  <input type="hidden" id="passInputEmail" value="">
-      <input type="email" id="inputEmail" placeholder="имя@домен" value="<?=$user['email']?>">
+      <input name="email" type="email" id="inputEmail" placeholder="имя@домен" value="<?=$user['email']?>">
 	  <span class="help-inline"><?php if($user['emailStatus']=='0') echo 'Почта не проверена';?></span>
     </div>
   </div>
@@ -162,20 +163,21 @@
   </div>
 </form>
 	
-	<form class="form-horizontal">
+	<form method="POST" onSubmit="return passFormCheck()"  class="form-horizontal">
+	<input type="hidden" id="passInputPass" value="">
 	<legend>Смена пароля</legend>
-  <div class="control-group">
+  <div id="inputPasswordCG" class="control-group">
     <label class="control-label" for="inputPassword">Новый пароль</label>
     <div class="controls">
-      <input type="password" id="inputPassword" placeholder="" value="">
-	  <span class="help-inline"></span>
+      <input name="inputPassword" onkeyup="checkNewPass()" type="password" id="inputPassword" placeholder="" value="">
+	  <span id="inputPasswordHelp" class="help-inline">Более 5 символов</span>
     </div>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="inputPassword">Повторите ввод</label>
+  <div id="checkPasswordCG" class="control-group">
+    <label class="control-label" for="checkPassword">Повторите ввод</label>
     <div class="controls">
-      <input type="password" id="inputPassword" placeholder="" value="">
-	  <span class="help-inline"></span>
+      <input type="password" onkeyup="checkNewPassConfirm()" id="checkPassword" placeholder="" value="">
+	  <span id="checkPasswordHelp" class="help-inline">Пароли должны совпадать</span>
     </div>
   </div>
   <div class="control-group">

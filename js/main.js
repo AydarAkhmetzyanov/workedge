@@ -27,6 +27,28 @@ function in_array( needle, haystack) {
      return false;
 }
 
+function checkPassStrength(a){
+  var c = 0;
+  var l = new Array(1, 2, 3, 4, 5);
+  var lvl = 0;
+  if(a.length<5){c=(c+7)}else if(a.length>4&&a.length<8){c=(c+14)}else if(a.length>7&&a.length<16){c=(c+17)}else if(a.length>15){c=(c+23)}if(a.match(/[a-z]/)){c=(c+9)}
+  if(a.match(/[A-Z]/)){c=(c+10)}
+  if(a.match(/\d+/)){c=(c+10)}
+  if(a.match(/(.*[0-9].*[0-9].*[0-9])/)){c=(c+10)}
+  if(a.match(/.[!,@,#,$,%,^,&,*,?,_,~]/)){c=(c+10)}
+  if(a.match(/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/)){c=(c+10)}
+  if(a.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)){c=(c+7)}
+  if(a.match(/([a-zA-Z])/)&&a.match(/([0-9])/)){c=(c+7)}
+  if(a.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)){c=(c+15)}
+  if(c<21){lvl = 0}else
+    if(c>20&&c<30){lvl = 1}else
+      if(c>29&&c<43){lvl = 2}else
+	if(c>42&&c<60){lvl = 3}else{
+	  lvl = 4}
+ 
+  return l[lvl];
+}
+
 function validateEmail(email) { 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);

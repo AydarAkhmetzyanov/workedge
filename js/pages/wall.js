@@ -66,17 +66,61 @@ function renderCoWorkers(coWorkers){
 	
 }
 
-var passInput='';
 function checkPass(){
     $('#passCheckHelp').show('slow');
 	var oldhash=$('#olddmd5').attr('value');
 	var newhash=md5(md5(md5($('#checkdmd5').attr('value'))+$('#oldsalt').attr('value')));
 	if(oldhash==newhash){
-	    passInput=$('#checkdmd5').attr('value');
+	    $('#passInputPass').attr('value',$('#checkdmd5').attr('value'))
 		$('#passInputEmail').attr('value',$('#checkdmd5').attr('value'))
 		$('#passCheckForm').hide();
 		$('#pSettingsForms').show('slow');
 	}
+}
+
+var lvl=1;
+function checkNewPass(){
+    if($('#inputPassword').attr('value').length > 5){
+        lvl=checkPassStrength($('#inputPassword').attr('value'));
+	} else {
+	    lvl=1;
+	}
+	if(lvl>2){
+	    $('#inputPasswordCG').addClass('success');
+		$('#inputPasswordCG').removeClass('error');
+	} else {
+	    $('#inputPasswordCG').removeClass('success');
+		$('#inputPasswordCG').addClass('error');
+	}
+	$('#inputPasswordHelp').html('Сложность пароля: '+lvl+'/5');
+}
+
+function checkNewPassConfirm(){
+    if($('#inputPassword').attr('value')==$('#checkPassword').attr('value')){
+	    $('#checkPasswordHelp').html('');
+		$('#checkPasswordCG').addClass('success');
+		$('#checkPasswordCG').removeClass('error');
+	} else {
+	    $('#checkPasswordHelp').html('Пароли не совпадают');
+		$('#checkPasswordCG').removeClass('success');
+		$('#checkPasswordCG').addClass('error');
+	}
+}
+
+function passFormCheck(){
+    if(lvl<3){
+	    alert('Уровень сложности пароля должен быть больше двух');
+		return false;
+	} else {
+	    if($('#inputPassword').attr('value')==$('#checkPassword').attr('value')){
+		    alert('Пароль изменен');
+		    return true;
+		} else {
+		    alert('Подтвердите ввод пароля');
+		    return false;
+		}
+	}
+    
 }
 
 function emailFormCheck(){
