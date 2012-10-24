@@ -5,7 +5,7 @@ class LoginController extends Controller {
 	public function index(){
 	    $data = array();
 	    if(User::isAuth()){
-		    redirect('tasks');
+		    redirect('wall');
 		} else {
 		    Header::render();
 			$data = array();

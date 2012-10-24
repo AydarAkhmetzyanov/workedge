@@ -149,22 +149,22 @@
   <div class="control-group <?php if($user['emailStatus']=='0') echo 'warning';?>">
     <label class="control-label" for="inputEmail">Адрес почты</label>
     <div class="controls">
-	  <input type="hidden" id="oldEmail" value="<?=$user['email']?>">
-	  <input type="hidden" id="passInputEmail" value="">
+	  <input type="hidden" name="oldEmail" id="oldEmail" value="<?=$user['email']?>">
+	  <input type="hidden" name="passInputEmail" id="passInputEmail" value="">
       <input name="email" type="email" id="inputEmail" placeholder="имя@домен" value="<?=$user['email']?>">
 	  <span class="help-inline"><?php if($user['emailStatus']=='0') echo 'Почта не проверена';?></span>
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn btn-danger">Изменить почту</button>
-	  <?php if($user['emailStatus']=='0') echo '<button type="submit" class="btn">Повторно отправить письмо проверки</button>';?>
+      <button type="submit" name="send" class="btn btn-danger">Изменить почту</button>
+	  <?php if($user['emailStatus']=='0') echo '<button type="submit" name="reSend" class="btn">Повторно отправить письмо проверки</button>';?>
     </div>
   </div>
 </form>
 	
 	<form method="POST" onSubmit="return passFormCheck()"  class="form-horizontal">
-	<input type="hidden" id="passInputPass" value="">
+	<input type="hidden" name="passInputPass" id="passInputPass" value="">
 	<legend>Смена пароля</legend>
   <div id="inputPasswordCG" class="control-group">
     <label class="control-label" for="inputPassword">Новый пароль</label>

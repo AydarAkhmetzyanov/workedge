@@ -45,7 +45,7 @@ class User extends Model
 
 	public static function checkLoginData($email, $password){
 	    global $db;
-		$stmt = $db->prepare("SELECT id, md5, salt, firstName, secondName FROM users WHERE email = :email LIMIT 1");
+		$stmt = $db->prepare("SELECT id, md5, salt, firstName, secondName, email FROM users WHERE email = :email LIMIT 1");
         $stmt->execute( array('email' => $email) );
 		if($stmt->rowCount()==1){
 		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -55,6 +55,7 @@ class User extends Model
 				$_SESSION['id'] = $table['id'];
 				$_SESSION['firstName'] = $table['firstName'];
 				$_SESSION['secondName'] = $table['secondName'];
+				$_SESSION['email'] = $table['email'];
 				$stmt = $db->prepare("
 					SELECT  `companymembership`.`companyId`, `companymembership`.`position`  ,  `companymembership`.`access` ,  `companies`.`name`,`companies`.`plan`
             	    FROM  `companymembership` 
@@ -111,6 +112,75 @@ class User extends Model
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$user=$stmt->fetch();
 		return $user;
+	}
+	
+	public static function checkUserPassword($pass){
+	    global $db;
+		$stmt = $db->prepare("SELECT id, md5, salt FROM users WHERE id = :id LIMIT 1");
+        $stmt->execute( array('id' => $_SESSION['id']) );
+		if($stmt->rowCount()==1){
+		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $table=$stmt->fetch();
+            if (md5(md5($pass).$table['salt']) == $table['md5']) {
+			    return true;
+			} else {
+			    return false;
+			}
+		}		
+	}
+	
+	public static function changePassword($newPass,$pass){
+	if((self::checkUserPassword($pass))and(strlen($newPass)>5)){
+	    global $db;
+		$salt = Passwords::generateString(4);
+		$md5 = md5(md5($newPass).$salt);
+	    $stmt = $db->prepare("
+				UPDATE `users` 
+				SET `md5`=:md5,`salt`=:salt
+				WHERE `id`=:id
+				");
+		$stmt->execute( array(
+		    'id' => $_SESSION['id'],
+		    'md5' => $md5,
+			'salt' => $salt
+			));
+	}
+	}
+	
+	public static function reSendEmailValidation($oldEmail,$pass){
+	if((self::checkUserPassword($pass))and(filter_var($oldEmail, FILTER_VALIDATE_EMAIL))){
+	    $emailActivationCode = Passwords::generateString(4);
+	    global $db;
+		$stmt = $db->prepare("
+				UPDATE `users` 
+				`emailActivationCode`=:actCode,emailStatus=0
+				WHERE `id`=:id
+				");
+		$stmt->execute( array(
+		    'id' => $_SESSION['id'],
+			'actCode' => $emailActivationCode
+			));
+        Mail::sendEmailValidation($oldEmail, APPDIR.'email/activateemail/'+$emailActivationCode, $_SESSION['firstName'], $_SESSION['secondName']);
+    }    
+	}
+	
+	public static function changeEmail($newEmail,$pass){
+	if((self::checkUserPassword($pass))and(filter_var($newEmail, FILTER_VALIDATE_EMAIL))){
+	    $emailActivationCode = Passwords::generateString(4);
+	    global $db;
+		$stmt = $db->prepare("
+				UPDATE `users` 
+				SET `email`=:email,`emailActivationCode`=:actCode,emailStatus=0
+				WHERE `id`=:id
+				");
+		$stmt->execute( array(
+		    'id' => $_SESSION['id'],
+		    'email' => $newEmail,
+			'actCode' => $emailActivationCode
+			));
+		$_SESSION['email'] = $newEmail;	
+	    Mail::sendEmailValidation($newEmail, APPDIR.'email/activateemail/'+$emailActivationCode, $_SESSION['firstName'], $_SESSION['secondName']);
+	}
 	}
 	
 	public static function updatePersonalSettings(){
