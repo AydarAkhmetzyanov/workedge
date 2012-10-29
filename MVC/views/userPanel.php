@@ -3,10 +3,7 @@
         <div class="container-fluid">
           <img class="panelAvatar img-rounded" src="/data/avatar/<?=$_SESSION['id']?>/small.jpg" />
 		  <a class="brand" id="<?=$_SESSION['id']?>" href="/wall"><?=$_SESSION['firstName']?> <?=$_SESSION['secondName']?></a>
-		  <ul class="nav">
-			
-  <?=$menuActions?>
-</ul>
+		 
             <div style="margin-left:5px;" class="btn-group pull-right">
             <a class="btn" onclick="logOut();" href="#">
               <i class="icon-off"></i></a>

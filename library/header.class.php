@@ -12,19 +12,16 @@ class Header
            $data['title']='Задачи';
 		   $data['menuPage'] = 'Задачи';
 		   $data['menuIcon'] = 'icon-tasks';
-		   $data['menuActions'] = '<li class="divider-vertical"></li><li><a data-toggle="modal" href="#addTaskModal"><i class="icon-plus"></i> Добавить задачу</a></li>';
         break;
 		case 'wall':
            $data['title']='Стена';
 		   $data['menuPage'] = 'Стена';
 		   $data['menuIcon'] = 'icon-th-list';
-		   $data['menuActions'] = '';
         break;
 		case 'company':
-           $data['title']='Компания';
+           $data['title']=$_SESSION['name'];
 		   $data['menuPage'] = 'Компания';
 		   $data['menuIcon'] = 'icon-briefcase';
-		   $data['menuActions'] = '';
         break;
         }
 

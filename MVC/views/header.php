@@ -10,7 +10,7 @@
 	<!--<script src="http://malsup.github.com/jquery.form.js"></script>-->
 	
 	<?php 
-	$controllersWithWall = array("tasks", "wall");
+	$controllersWithWall = array('tasks', 'wall', 'company');
     if (in_array(CONTROLLER, $controllersWithWall)) {
         echo HTML::includeJS('fileuploader');
 		echo HTML::includeJS('wall');

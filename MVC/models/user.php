@@ -42,6 +42,39 @@ class User extends Model
 		return $stmt;
 	}
 	
+	public static function changeCompany($id){
+	    global $db;
+		$_SESSION['companyId'] = $id;
+		$stmt = $db->prepare("
+				    SELECT  `companymembership`.`position`  ,  `companymembership`.`access`
+            	    FROM  `companymembership` 
+            	    WHERE  `companymembership`.`userId` = :userId AND `companymembership`.`companyId` = :companyId
+					LIMIT 1
+				");
+		$stmt->execute( array(
+		'userId' => $_SESSION['id'],
+		'companyId' => $id
+		) );		
+		if($stmt->rowCount() > 0){
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$table=$stmt->fetch();
+			$_SESSION['access'] = $table['access'];
+			$_SESSION['position'] = $table['position'];
+		} else {
+		    $_SESSION['access'] = 0;
+		}
+		$stmt = $db->prepare("
+					SELECT `companies`.`name`,`companies`.`plan`
+            	    FROM  `companies` 
+            	    WHERE  `companies`.`id` = :id
+					LIMIT 1
+				");
+				$stmt->execute( array('id' => $id) );		
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$table=$stmt->fetch();
+		$_SESSION['name'] = $table['name'];
+		$_SESSION['plan'] = $table['plan'];
+	}
 
 	public static function checkLoginData($email, $password){
 	    global $db;
